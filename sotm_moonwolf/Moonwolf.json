@@ -1,0 +1,444 @@
+{
+    "name":"Moonwulf",
+    "kind":"Hero",
+    "initialCardIdentifiers":[
+       "MoonwolfCharacter",
+       "PullOfTheMoon"
+    ],
+    "cards":[
+       {
+          "identifier":"MoonwolfCharacter",
+          "count":1,
+          "title":"Moonwolf",
+          "body":"Rend",
+          "backgroundColor":"fbf8f9",
+          "foilBackgroundColor":"FEFEFE",
+          "hitpointsColor":"C94742",
+          "character":true,
+          "powers":[
+             "{Moonwolf} deals 1 Target 2 Melee damage, then herself 1 Melee damage."
+          ],
+          "icons":[
+             "HasPower",
+             "DealDamageMelee"
+          ],
+          "hitpoints":31,
+          "nemesisIdentifiers":[
+             "Moonwolf"
+          ],
+          "incapacitatedAbilities":[
+             "One target deals itself 1 Melee damage, then regains 2 HP.",
+             "The enviroment deals a Hero 2 Radiant Damage, then that Hero may draw a card and play a card.",
+             "Destroy an Enviroment Target."
+          ],
+          "flippedIcons":[
+             "DealDamageMelee",
+             "GainHP",
+             "DrawCardNow",
+             "PlayCardNow",
+             "DestroyEnvironment"
+          ],
+         "openingLines":
+         {
+            "default": "I am a sexy wolf lady, grr!"
+         },
+          "complexity":1,
+          "tokenPools":[  
+            {  
+               "identifier":"PullOfTheMoonPool",
+               "name":"Moonwolf's token Pool",
+               "initialValue":0,
+               "minimumValue":0,
+               "maximumValue":50,
+               "color":"DFE6E5"
+            }
+         ]
+       },
+       {
+          "identifier":"PullOfTheMoon",
+          "count":1,
+          "title":"Pull of the Moon",
+          "keywords":[ ],
+          "body":[ 
+              "Whenever {Moonwolf} takes Damage, add tokens equal to the damage taken to this card.",
+              "This card is indestructible."
+          ],
+          "icons":[
+             "AddTokens"
+          ],
+          "flavorQuotes":[
+            {	
+				"identifier":"Moonwolf",
+				"text":"The moon watches over me, and in turn I draw power from her."  
+			}
+         ],
+         "flavorReference":"Moonwolf, Supernatural Romance #2"
+       },
+       {
+        "identifier":"BlindRage",
+        "count":3,
+        "title":"Blind Rage",
+        "keywords":[
+           "one-shot"
+        ],
+        "body":[
+            "{Moonwolf} deals up to 3 targets 2 melee damage each.",
+             "If a Hero Target was damaged by card, {Moonwolf} deals up to 2 targets, 2 melee damage each."],
+        "icons":[
+           "DealDamageMelee"
+        ],
+        "flavorQuotes":[
+           {
+              "identifier":"Moonwolf",
+              "text":"The moon is capricious."
+           }
+        ],
+        "flavorReference":"Moonwolf, Supernatural Romance #3"
+     },
+     {
+      "identifier":"ForcedChange",
+      "count":3,
+      "title":"Forced Change",
+      "keywords":[
+         "one-shot"
+      ],
+      "body":[
+          "{Moonwolf} deals herself 2 Melee damage.",
+           "Search your deck for a Feral card, and put the selected card into play or your hand, then shuffle your deck."],
+      "icons":[
+         "DealDamageMelee",
+         "Manipulate"
+      ],
+      "flavorQuotes":[
+         {
+            "identifier":"Moonwolf",
+            "text":"Luna! Your priestess needs your power!."
+         }
+      ],
+      "flavorReference":"Moonwolf, Dark Sun One-Shot"
+   },
+   {
+      "identifier":"TasteForBlood",
+      "count":3,
+      "title":"Taste for Blood",
+      "keywords":[
+         "one-shot"
+      ],
+      "body":[
+          "{Moonwolf} deals one target 4 Melee damage.",
+           "If the Target took damage, {Moonwolf} regains 2 HP."],
+      "icons":[
+         "DealDamageMelee",
+         "GainHP"
+      ],
+      "flavorQuotes":[
+         {
+            "identifier":"Moonwolf",
+            "text":"There's a peace you find when you embrace your true nature."
+         }
+      ],
+      "flavorReference":"Moonwolf, The Moonwolf #1"
+   },
+   {
+      "identifier":"HowlAtTheMoon",
+      "count":2,
+      "title":"Howl at the Moon",
+      "keywords":[
+         "one-shot"
+      ],
+      "body":[
+          "Remove 5 tokens from Pull of the Moon. If you do, each Hero Target regains 1 HP.",
+           "Increase all Damage dealt by Hero Targets by 1 until the start of your turn."],
+      "icons":[
+         "RemoveTokens",
+         "GainHP",
+         "IncreaseDamageDealt"
+      ],
+      "flavorQuotes":[
+         {
+            "identifier":"Moonwolf",
+            "text":"Aroooo! Charge!."
+         },
+         {
+            "identifier":"Malichae",
+            "text":"She doesn't mean me? Right?"
+         }
+      ],
+      "flavorReference":"The Cauldron #0"
+   },
+   {
+      "identifier":"Rampage",
+      "count":2,
+      "title":"Rampage",
+      "keywords":[
+         "one-shot"
+      ],
+      "body":[
+          "{Moonwolf} deals herself 1 Melee damage.",
+          "Destroy up to 2 Ongoing or Enviroment cards.",
+           "{Moonwolf} regains 1 HP for each card destroyed this way."],
+      "icons":[
+         "DealDamageMelee",
+         "DestroyOngoing",
+         "DestroyEnvironment",
+         "GainHP"
+      ],
+      "flavorQuotes":[
+         {
+            "identifier":"Moonwolf",
+            "text":"Sorry about the dishes. You know how I get..."
+         }
+      ],
+      "flavorReference":"Moonwolf, The Moonwolf #2"
+   },
+   {
+      "identifier":"MoonlitInterlude",
+      "count":3,
+      "title":"Moonlit Interlude",
+      "keywords":[
+         "one-shot"
+      ],
+      "body":[
+          "{Moonwolf} and another Hero character card regain 2 HP, then choose one of these Hero's players to play a card."
+         ],
+      "icons":[
+         "GainHP",
+         "PlayCardNow"
+      ],
+      "flavorQuotes":[
+         {
+            "identifier":"Moonwolf",
+            "text":"I think we have time for another drink, don't you..."
+         }
+      ],
+      "flavorReference":"Moonwolf, Supernatural Romance #1"
+   },
+   {
+      "identifier":"DrawOutTheBeast",
+      "count":2,
+      "title":"Draw out the Beast",
+      "keywords":[
+         "one-shot"
+      ],
+      "body":[
+          "Remove up to 5 tokens from Pull of the Moon.",
+          "Reveal X cards where the X is the number of tokens removed, put one card into play and the remaining cards into the trash."
+         ],
+      "icons":[
+         "RemoveTokens",
+         "PlayCardNow"
+      ],
+      "flavorText": "These blessing, accepted not chosen, to change the world - Prayer of Luna's Chosen"
+   },
+       {
+          "identifier":"LunasAvatar",
+          "count":3,
+          "title":"Luna's Avatar",
+          "keywords":[
+             "ongoing",
+             "limited",
+             "feral"
+          ],
+          "icons":[
+            "IncreaseDamageDealt",
+            "RemoveTokens"
+          ],
+          "body":[
+            "Increase Melee damage dealt by {Moonwolf} to non-Hero targets by 2.",
+            "At the start of your turn, remove 3 Tokens from Pull of the Moon, or destroy this card."
+         ],
+          "flavorQuotes":[
+            {
+               "identifier":"Nightmist",
+               "text":"I didn't expect her to be so beautiful."
+            }
+         ],
+         "flavorReference":"Supernatural Romance #2"
+       },
+       {
+          "identifier":"FrenziedStrikes",
+          "count":3,
+          "title":"Frenzid Strikes",
+          "keywords":[
+             "ongoing",
+             "limited",
+             "feral"
+          ],
+          "icons":[
+             "DestroySelf",
+            "IncreaseDamageDealtMelee",
+            "RemoveTokens"
+          ],
+          "body":[
+            "Increase Melee damage dealt by {Moonwolf} to non-Hero targets by 2.",
+            "At the start of your turn, remove 3 Tokens from Pull of the Moon, or destroy this card."
+         ],
+
+        "flavorQuotes":[
+            {
+               "identifier":"Tempest",
+               "text":"Stop! You'll tear yourself apart."
+            }
+         ],
+         "flavorReference":"Supernatural Romance #3",
+          
+       },
+       {
+          "identifier":"TearsOfTheMoon",
+          "count":3,
+          "title":"Tears of the Moon",
+          "keywords":[
+             "ongoing",
+             "limited",
+             "feral",
+          ],
+          "body":[
+            "At the start of your turn, {Moonwolf} regains 1 HP.",
+            "Whenever {Moonwolf} is dealt damage, she may remove 2 Tokens to regain 1 HP."
+         ],
+          "icons":[
+             "StartOfTurnAction",
+             "GainHP",
+             "RemoveTokens"
+          ],
+          "flavorQuotes":[
+             {
+                "identifier":"Moonwolf",
+                "text":"My Mistress demands much, but I know she cares."
+             }
+          ],
+          "flavorReference":"Supernatural Romance #1"
+       },
+       {
+          "identifier":"CycleOfLife",
+          "count":3,
+          "title":"Cycle of Life",
+          "keywords":[
+             "ongoing",
+             "limited",
+             "feral",
+          ],
+          "body":[
+            "At the start of your turn, {Moonwolf} regains 1 HP.",
+            "Damage {Moonwolf} deals to Enviroment targets is Irreducible and increased by 2."
+         ],
+          "icons":[
+             "StartOfTurnAction",
+             "IncreaseDamageDealt"
+          ],
+          "flavorQuotes":[
+             {
+                "identifier":"Tachyon",
+                "text":"Did you see what she did to Orbo? I threw up."
+             }
+          ],
+          "flavorReference":"The Moonwolf #2"
+       },
+       {
+          "identifier":"NewMoonRising",
+          "count":2,
+          "title":"New Moon Rising",
+           "keywords":[
+             "ongoing",
+             "limited",
+             "feral",
+          ],
+          "body":[
+         	"If {Moonwolf} would be reduced to 0 or fewer HP, remove all tokens from Pull of the Moon and restore {Moonwolf} to HP equal to the amount of tokens removed this way.",
+			"Then, destroy this card."
+         ],
+          "icons":[
+         	"RemoveTokens",
+         	"GainHP",
+         	"DestroySelf"
+         ],
+          "flavorQuotes":[
+             {
+                "identifier":"Moonwolf",
+                "text":"The moon always rises again!"
+             }
+          ],
+          "flavorReference":"The Moonwolf #3"
+       },
+       {
+          "identifier":"ChannelTheMoon",
+          "count":3,
+          "title":"Channel the Moon",
+           "keywords":[
+             "ongoing",
+             "limited",
+             "feral",
+          ],
+          "body":[
+         	"Redirect all Damage that would be dealt to Hero Targets to {Moonwolf}.",
+			"Whenever {Moonwolf} takes Damage, yhou may prevent that damage by removing X tokens from Pull of the Moon, where X is the amount of damage being dealt.",
+            "At the start of your turn, destroy this card."
+         ],
+          "icons":[
+         	"RedirectDamage",
+            "RemoveTokens",
+            "CancelledDamageGreen",
+            "StartOfTurnAction",
+            "DestroySelf"
+         ],
+          "flavorQuotes":[
+             {
+                "identifier":"Visionary",
+                "text":"How can one women hold such power."
+             }
+          ],
+          "flavorReference":"The Moonwolf #3"
+       },
+       {
+          "identifier":"MoonPriestess",
+          "count":3,
+          "title":"Moon Priestess",
+           "keywords":[
+             "ongoing",
+             "limited",
+             "feral",
+          ],
+          "powers":[  
+            "Add 2 Tokens to Pull of the Moon, then select a Hero to regain 2 HP, and draw a card.."
+         ],
+          "icons":[
+         	"UsePower",
+            "GainHP",
+            "AddTokens",
+            "DrawCardNow"
+         ],
+          "flavorQuotes":[
+             {
+                "identifier":"Moonwolf",
+                "text":"Go forth, Wraith. The moon demands vengeance."
+             }
+          ],
+          "flavorReference":"Supernatural Romance #2"
+       },
+       {
+      "identifier":"BloodSacrifice",
+      "count":3,
+      "title":"Blood Sacrifice",
+      "keywords":[
+         "one-shot"
+      ],
+      "body":[
+          "{Moonwolf} deals herself 2 Melee damage, then adds 3 Tokens to Pull of the Moon.",
+          "You may play a card now."
+         ],
+      "icons":[
+         "DealDamageMelee",
+         "AddTokens",
+         "PlayCardNow"
+      ],
+      "flavorQuotes":[
+         {
+            "identifier":"Moonwolf",
+            "text":"Luna! Accept this sacrifice"
+         }
+      ],
+      "flavorReference":"Dark Sun One-Shot"
+   },
+    ]
+
+ }
