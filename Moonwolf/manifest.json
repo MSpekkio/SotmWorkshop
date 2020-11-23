@@ -3,7 +3,7 @@
 	"author": "Michael \"MSpekkio\" Telford",
 	"description": "",
 	"namespace":"SotmWorkshop",
-	"dll":"Moonwolf.dll",
+	"dll":"SotmWorkshop.Moonwolf.dll",
 	"decks":{
 		"heroes":[
 			"Moonwolf",

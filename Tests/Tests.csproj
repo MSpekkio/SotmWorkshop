@@ -3,6 +3,10 @@
 	<PropertyGroup>
 		<TargetFramework>net45</TargetFramework>
 		<Deterministic>true</Deterministic>
+		<AssemblyName>SotmWorkshop.Tests</AssemblyName>
+		<RootNamespace>SotmWorkshop.Tests</RootNamespace>
+		<DebugType>pdbonly</DebugType>
+		<DebugSymbols>true</DebugSymbols>
 	</PropertyGroup>
 
 	<ItemGroup>

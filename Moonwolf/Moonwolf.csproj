@@ -3,6 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net35</TargetFramework>
 	  <Deterministic>true</Deterministic>
+	  <RootNamespace>SotmWorkshop.Moonwolf</RootNamespace>
+	  <AssemblyName>SotmWorkshop.Moonwolf</AssemblyName>
+	  <DebugType>pdbonly</DebugType>
+	  <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
