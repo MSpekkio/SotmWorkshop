@@ -5,7 +5,7 @@ using System.Linq;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 
-namespace sotm_moonwolf
+namespace SotmWorkshop.Moonwolf
 {
     public class BlindRageCardController : MoonwolfCardController
     {

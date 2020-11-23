@@ -3,14 +3,14 @@ using System.Collections;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 
-namespace sotm_moonwolf
+namespace SotmWorkshop.Moonwolf
 {
 	public abstract class MoonwolfCardController : CardController
 	{
         protected static readonly string PullOfTheMoonIdentifier = "PullOfTheMoonPool";
 		protected static readonly string FeralKeyword = "feral";
 
-		public MoonwolfCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
+		protected MoonwolfCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
 		{
 		}
 
