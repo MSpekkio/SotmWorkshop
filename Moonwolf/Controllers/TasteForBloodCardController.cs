@@ -15,24 +15,24 @@ namespace SotmWorkshop.Moonwolf
         }
 
         public override IEnumerator Play()
-		{
+        {
             List<DealDamageAction> storedResult = new List<DealDamageAction>();
             //Moonwolf deals 1 Target 4 Melee damage.
-			IEnumerator coroutine = base.GameController.SelectTargetsAndDealDamage(this.DecisionMaker, new DamageSource(base.GameController, base.CharacterCard), 4, DamageType.Melee, 1, false, 0,
+            IEnumerator coroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), 4, DamageType.Melee, 1, false, 1,
                                         storedResultsDamage: storedResult,
-                                        cardSource: base.GetCardSource());
-			if (base.UseUnityCoroutines)
-			{
-				yield return base.GameController.StartCoroutine(coroutine);
-			}
-			else
-			{
-				base.GameController.ExhaustCoroutine(coroutine);
-			}
+                                        cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(coroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(coroutine);
+            }
             //If the Target took damage this way, Moonwolf regains 2 HP.
             if (storedResult.Any(dealDamage => dealDamage.DidDealDamage))
             {
-                coroutine = base.GameController.GainHP(base.CharacterCard, 2, cardSource: base.GetCardSource());
+                coroutine = base.GameController.GainHP(CharacterCard, 2, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(coroutine);
@@ -42,7 +42,7 @@ namespace SotmWorkshop.Moonwolf
                     base.GameController.ExhaustCoroutine(coroutine);
                 }
             }
-			yield break;
-		}
+            yield break;
+        }
     }
 }

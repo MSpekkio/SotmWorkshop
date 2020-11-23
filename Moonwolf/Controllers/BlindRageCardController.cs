@@ -15,20 +15,20 @@ namespace SotmWorkshop.Moonwolf
         }
 
         public override IEnumerator Play()
-		{
+        {
             List<DealDamageAction> storedResult = new List<DealDamageAction>();
             //Moonwolf deals up to 3 Targets 2 Melee Damage.
-			IEnumerator coroutine = base.GameController.SelectTargetsAndDealDamage(this.DecisionMaker, new DamageSource(base.GameController, base.CharacterCard), 2, DamageType.Melee, 3, false, 0,
+            IEnumerator coroutine = base.GameController.SelectTargetsAndDealDamage(this.DecisionMaker, new DamageSource(base.GameController, base.CharacterCard), 2, DamageType.Melee, 3, false, 0,
                                         storedResultsDamage: storedResult,
                                         cardSource: base.GetCardSource());
-			if (base.UseUnityCoroutines)
-			{
-				yield return base.GameController.StartCoroutine(coroutine);
-			}
-			else
-			{
-				base.GameController.ExhaustCoroutine(coroutine);
-			}
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(coroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(coroutine);
+            }
             //If at least one of the Targets damaged by this card was a Hero Target, then Moonwolf deals up to 2 Targets 2 Melee Damage.
             if (storedResult.Any(dealDamage => dealDamage.Target.IsHero))
             {
@@ -43,7 +43,7 @@ namespace SotmWorkshop.Moonwolf
                     base.GameController.ExhaustCoroutine(coroutine);
                 }
             }
-			yield break;
-		}
+            yield break;
+        }
     }
 }

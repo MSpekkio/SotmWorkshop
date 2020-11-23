@@ -13,7 +13,7 @@ namespace SotmWorkshop.Moonwolf
         : base(card, turnTakerController)
         {
         }
-    
+
         public override IEnumerator UseIncapacitatedAbility(int index)
         {
             switch (index)
@@ -48,46 +48,50 @@ namespace SotmWorkshop.Moonwolf
                 break;
             }
             */
-            case 2:
-            {
-                //* Destroy an Environment Target.
-                IEnumerator coroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria(card => card.IsEnvironment, "environment"), true, cardSource: base.GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(coroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(coroutine);
-                }
-                break;
-            }
+                case 2:
+                    {
+                        //* Destroy an Environment Target.
+                        IEnumerator coroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria(card => card.IsEnvironment, "environment"), true, cardSource: base.GetCardSource());
+                        if (base.UseUnityCoroutines)
+                        {
+                            yield return base.GameController.StartCoroutine(coroutine);
+                        }
+                        else
+                        {
+                            base.GameController.ExhaustCoroutine(coroutine);
+                        }
+                        break;
+                    }
             }
             yield break;
         }
 
         public override IEnumerator UsePower(int index = 0)
         {
+            int targets = GetPowerNumeral(0, 1);
+            int damages = GetPowerNumeral(1, 2);
+            int selfDamage = GetPowerNumeral(2, 1);
+
             //Moonwolf deals 1 Target 2 Melee Damage,
-            IEnumerator coroutine = base.GameController.SelectTargetsAndDealDamage(this.DecisionMaker, new DamageSource(base.GameController, base.Card), 2, DamageType.Melee, 1, false, 1, cardSource: base.GetCardSource());
-			if (base.UseUnityCoroutines)
-			{
-				yield return base.GameController.StartCoroutine(coroutine);
-			}
-			else
-			{
-				base.GameController.ExhaustCoroutine(coroutine);
-			}
+            IEnumerator coroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), damages, DamageType.Melee, targets, false, targets, cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(coroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(coroutine);
+            }
             //...then herself 1 Melee Damage.
-            coroutine = base.DealDamage(base.CharacterCard, base.CharacterCard, 1, DamageType.Melee, cardSource: base.GetCardSource());
-			if (base.UseUnityCoroutines)
-			{
-				yield return base.GameController.StartCoroutine(coroutine);
-			}
-			else
-			{
-				base.GameController.ExhaustCoroutine(coroutine);
-			}
+            coroutine = DealDamage(CharacterCard, CharacterCard, selfDamage, DamageType.Melee, cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(coroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(coroutine);
+            }
             yield break;
         }
     }

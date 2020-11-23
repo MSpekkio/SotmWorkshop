@@ -12,16 +12,17 @@ namespace SotmWorkshop.Moonwolf
         public NewMoonRisingCardController(Card card, TurnTakerController turnTakerController)
          : base(card, turnTakerController)
         {
+            SpecialStringMaker.ShowTokenPool(PullOfTheMoon);
         }
 
         public override void AddTriggers()
         {
-            Func<int> numberOfHitPointsToRestoreTo = () => base.PullOfTheMoon.CurrentValue;
+            Func<int> numberOfHitPointsToRestoreTo = () => PullOfTheMoon.CurrentValue;
             base.AddWhenHPDropsToZeroOrBelowRestoreHPTriggers(
-                () => base.CharacterCard,
+                () => CharacterCard,
                 numberOfHitPointsToRestoreTo,
                 true,
-                ga => base.GameController.RemoveTokensFromPool(base.PullOfTheMoon, base.PullOfTheMoon.CurrentValue, cardSource: base.GetCardSource())
+                ga => GameController.RemoveTokensFromPool(PullOfTheMoon, PullOfTheMoon.CurrentValue, gameAction: ga, cardSource: GetCardSource())
             );
         }
     }

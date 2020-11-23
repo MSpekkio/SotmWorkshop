@@ -12,9 +12,9 @@ namespace SotmWorkshop.Moonwolf
         public PullOfTheMoonCardController(Card card, TurnTakerController turnTakerController)
          : base(card, turnTakerController)
         {
-            base.AddThisCardControllerToList(CardControllerListType.MakesIndestructible);
+            AddThisCardControllerToList(CardControllerListType.MakesIndestructible);
 
-            base.SpecialStringMaker.ShowTokenPool(base.PullOfTheMoon);
+            SpecialStringMaker.ShowTokenPool(PullOfTheMoon);
         }
 
         public override void AddTriggers()
@@ -28,21 +28,21 @@ namespace SotmWorkshop.Moonwolf
 
         private IEnumerator AddTokensResponse(int amount)
         {
-            IEnumerator coroutine = base.GameController.AddTokensToPool(base.PullOfTheMoon, amount, base.GetCardSource());
-			if (base.UseUnityCoroutines)
-			{
-				yield return base.GameController.StartCoroutine(coroutine);
-			}
-			else
-			{
-				base.GameController.ExhaustCoroutine(coroutine);
-			}
+            IEnumerator coroutine = GameController.AddTokensToPool(PullOfTheMoon, amount, base.GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(coroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(coroutine);
+            }
             yield break;
         }
 
         public override bool AskIfCardIsIndestructible(Card card)
-		{
-			return card == base.Card;
-		}
+        {
+            return card == base.Card;
+        }
     }
 }

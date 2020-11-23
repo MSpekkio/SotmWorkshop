@@ -8,47 +8,47 @@ using Handelabra.Sentinels.Engine.Model;
 
 namespace SotmWorkshop.Moonwolf
 {
-	public class FrenziedStrikesCardController : MoonwolfCardController
-	{
-		public FrenziedStrikesCardController(Card card, TurnTakerController turnTakerController)
-			: base(card, turnTakerController)
-		{
-			base.GameController.AddCardControllerToList(CardControllerListType.IncreasePhaseActionCount, this);
+    public class FrenziedStrikesCardController : MoonwolfCardController
+    {
+        public FrenziedStrikesCardController(Card card, TurnTakerController turnTakerController)
+            : base(card, turnTakerController)
+        {
+            base.GameController.AddCardControllerToList(CardControllerListType.IncreasePhaseActionCount, this);
 
-		}
+        }
 
-		private StatusEffect GrantACharacterPowerUsage()
-		{
-			AllowSetNumberOfPowerUseStatusEffect statusEffect = new AllowSetNumberOfPowerUseStatusEffect(2);
-			statusEffect.UsePowerCriteria.IsSpecificCard = base.CharacterCard;
-			statusEffect.UsePowerCriteria.CardSource = base.CharacterCard;
-			statusEffect.UntilThisTurnIsOver(base.GameController.Game);
-			statusEffect.CardDestroyedExpiryCriteria.Card = base.CharacterCard;
-			statusEffect.NumberOfUses = 1;
+        private StatusEffect GrantACharacterPowerUsage()
+        {
+            AllowSetNumberOfPowerUseStatusEffect statusEffect = new AllowSetNumberOfPowerUseStatusEffect(2);
+            statusEffect.UsePowerCriteria.IsSpecificCard = base.CharacterCard;
+            statusEffect.UsePowerCriteria.CardSource = base.CharacterCard;
+            statusEffect.UntilThisTurnIsOver(base.GameController.Game);
+            statusEffect.CardDestroyedExpiryCriteria.Card = base.CharacterCard;
+            statusEffect.NumberOfUses = 1;
 
-			return statusEffect;
-		}
+            return statusEffect;
+        }
 
         public override void AddTriggers()
         {
-            
+
         }
 
 
         public override IEnumerator Play()
-		{
-			var statusEffect = GrantACharacterPowerUsage();
-			IEnumerator coroutine = AddStatusEffect(statusEffect);
-			if (base.UseUnityCoroutines)
-			{
-				yield return base.GameController.StartCoroutine(coroutine);
-			}
-			else
-			{
-				base.GameController.ExhaustCoroutine(coroutine);
-			}
-			yield break;
-			/*
+        {
+            var statusEffect = GrantACharacterPowerUsage();
+            IEnumerator coroutine = AddStatusEffect(statusEffect);
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(coroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(coroutine);
+            }
+            yield break;
+            /*
 			if (base.GameController.ActiveTurnTaker == base.TurnTaker)
 			{
 				AllowSetNumberOfPowerUseStatusEffect allowSetNumberOfPowerUseStatusEffect = new AllowSetNumberOfPowerUseStatusEffect(2);
@@ -120,6 +120,6 @@ namespace SotmWorkshop.Moonwolf
 				}
 			}
 			*/
-		}
-	}
+        }
+    }
 }

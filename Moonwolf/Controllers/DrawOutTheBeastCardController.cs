@@ -15,22 +15,22 @@ namespace SotmWorkshop.Moonwolf
         }
 
         public override IEnumerator Play()
-		{
+        {
             IEnumerator coroutine;
             //Remove up to 5 tokens from Pull of the Moon.
             if (base.PullOfTheMoon.CurrentValue > 0)
-			{
+            {
                 int max = base.PullOfTheMoon.CurrentValue < 5 ? base.PullOfTheMoon.CurrentValue : 5;
-				List<SelectNumberDecision> selectNumber = new List<SelectNumberDecision>();
-				coroutine = this.GameController.SelectNumber(this.DecisionMaker, SelectionType.RemoveTokens, 0, max, cardSource: this.GetCardSource());
-				if (this.UseUnityCoroutines)
-				{
-					yield return this.GameController.StartCoroutine(coroutine);
-				}
-				else
-				{
-					this.GameController.ExhaustCoroutine(coroutine);
-				}
+                List<SelectNumberDecision> selectNumber = new List<SelectNumberDecision>();
+                coroutine = this.GameController.SelectNumber(this.DecisionMaker, SelectionType.RemoveTokens, 0, max, cardSource: this.GetCardSource());
+                if (this.UseUnityCoroutines)
+                {
+                    yield return this.GameController.StartCoroutine(coroutine);
+                }
+                else
+                {
+                    this.GameController.ExhaustCoroutine(coroutine);
+                }
                 int amount = selectNumber.FirstOrDefault()?.SelectedNumber ?? 0;
                 if (amount > 0)
                 {
@@ -55,20 +55,20 @@ namespace SotmWorkshop.Moonwolf
                         this.GameController.ExhaustCoroutine(coroutine);
                     }
                 }
-			}
-			else
-			{
-				coroutine = this.GameController.SendMessageAction("There are no tokens in " + base.PullOfTheMoon.Name + " to remove.", Priority.High, this.GetCardSource(), null, true);
-				if (this.UseUnityCoroutines)
-				{
-					yield return this.GameController.StartCoroutine(coroutine);
-				}
-				else
-				{
-					this.GameController.ExhaustCoroutine(coroutine);
-				}
-			}
-			yield break;
-		}
+            }
+            else
+            {
+                coroutine = this.GameController.SendMessageAction("There are no tokens in " + base.PullOfTheMoon.Name + " to remove.", Priority.High, this.GetCardSource(), null, true);
+                if (this.UseUnityCoroutines)
+                {
+                    yield return this.GameController.StartCoroutine(coroutine);
+                }
+                else
+                {
+                    this.GameController.ExhaustCoroutine(coroutine);
+                }
+            }
+            yield break;
+        }
     }
 }

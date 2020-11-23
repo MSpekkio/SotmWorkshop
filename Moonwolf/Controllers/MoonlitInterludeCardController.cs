@@ -15,20 +15,20 @@ namespace SotmWorkshop.Moonwolf
         }
 
         public override IEnumerator Play()
-		{
+        {
             LinqCardCriteria cardCriteria = new LinqCardCriteria(card => card.IsHeroCharacterCard && card.Owner != this.HeroTurnTaker, "hero character card");
             List<SelectCardDecision> storedResults = new List<SelectCardDecision>();
 
             IEnumerator selection = base.GameController.SelectCardAndStoreResults(this.HeroTurnTakerController, SelectionType.GainHP,
                 cardCriteria, storedResults, false, cardSource: base.GetCardSource());
             if (base.UseUnityCoroutines)
-			{
-				yield return base.GameController.StartCoroutine(selection);
-			}
-			else
-			{
-				base.GameController.ExhaustCoroutine(selection);
-			}
+            {
+                yield return base.GameController.StartCoroutine(selection);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(selection);
+            }
 
             if (storedResults.Count > 0)
             {
@@ -49,7 +49,7 @@ namespace SotmWorkshop.Moonwolf
                 }
 
                 //then choose one of these Hero's players to play a card.
-                selection = base.GameController.SelectHeroToPlayCard(this.HeroTurnTakerController, 
+                selection = base.GameController.SelectHeroToPlayCard(this.HeroTurnTakerController,
                                 additionalCriteria: new LinqTurnTakerCriteria(tt => tt == this.HeroTurnTaker || tt == selectedTurnTaker, "a pleasent evening"),
                                 cardSource: base.GetCardSource());
                 if (base.UseUnityCoroutines)
@@ -61,7 +61,7 @@ namespace SotmWorkshop.Moonwolf
                     base.GameController.ExhaustCoroutine(selection);
                 }
             }
-			yield break;
-		}
+            yield break;
+        }
     }
 }
