@@ -16,16 +16,16 @@ namespace SotmWorkshop.Moonwolf
 
         public override void AddTriggers()
         {
-            base.AddTrigger<DealDamageAction>(dealDamage => dealDamage.Target.IsEnvironmentTarget, DealDamageResponse, new[] { TriggerType.IncreaseDamage, TriggerType.MakeDamageIrreducible }, TriggerTiming.Before);
+            AddTrigger<DealDamageAction>(dealDamage => dealDamage.Target.IsEnvironmentTarget, DealDamageResponse, new[] { TriggerType.IncreaseDamage, TriggerType.MakeDamageIrreducible }, TriggerTiming.Before);
 
-            base.AddStartOfTurnTrigger(tt => tt == base.TurnTaker, p => base.GameController.GainHP(this.CharacterCard, 1), TriggerType.GainHP);
+            AddStartOfTurnTrigger(tt => tt == TurnTaker, p => GameController.GainHP(CharacterCard, 1), TriggerType.GainHP);
         }
 
         private IEnumerator DealDamageResponse(DealDamageAction dealDamage)
         {
             //TODO - Awkward two actions.  Should be someway to do both together.
-            var co1 = base.GameController.IncreaseDamage(dealDamage, 2, cardSource: base.GetCardSource());
-            var co2 = base.GameController.MakeDamageIrreducible(dealDamage, base.GetCardSource());
+            var co1 = GameController.IncreaseDamage(dealDamage, 2, cardSource: GetCardSource());
+            var co2 = GameController.MakeDamageIrreducible(dealDamage, GetCardSource());
 
             if (base.UseUnityCoroutines)
             {

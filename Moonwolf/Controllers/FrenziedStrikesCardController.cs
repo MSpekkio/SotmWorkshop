@@ -20,10 +20,10 @@ namespace SotmWorkshop.Moonwolf
         private StatusEffect GrantACharacterPowerUsage()
         {
             AllowSetNumberOfPowerUseStatusEffect statusEffect = new AllowSetNumberOfPowerUseStatusEffect(2);
-            statusEffect.UsePowerCriteria.IsSpecificCard = base.CharacterCard;
-            statusEffect.UsePowerCriteria.CardSource = base.CharacterCard;
-            statusEffect.UntilThisTurnIsOver(base.GameController.Game);
-            statusEffect.CardDestroyedExpiryCriteria.Card = base.CharacterCard;
+            statusEffect.UsePowerCriteria.IsSpecificCard = CharacterCard;
+            statusEffect.UsePowerCriteria.CardSource = CharacterCard;
+            statusEffect.UntilThisTurnIsOver(GameController.Game);
+            statusEffect.CardDestroyedExpiryCriteria.Card = CharacterCard;
             statusEffect.NumberOfUses = 1;
 
             return statusEffect;

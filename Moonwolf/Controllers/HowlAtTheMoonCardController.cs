@@ -18,7 +18,7 @@ namespace SotmWorkshop.Moonwolf
         {
             //Remove 5 Tokens from the card Pull of the Moon.
             List<RemoveTokensFromPoolAction> storedResults = new List<RemoveTokensFromPoolAction>();
-            IEnumerator coroutine = base.GameController.RemoveTokensFromPool(base.PullOfTheMoon, 5, storedResults, optional: true, cardSource: base.GetCardSource());
+            IEnumerator coroutine = GameController.RemoveTokensFromPool(PullOfTheMoon, 5, storedResults, optional: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(coroutine);
@@ -29,10 +29,10 @@ namespace SotmWorkshop.Moonwolf
             }
 
             // If you do, each Hero Target regains 1 HP.
-            int numberOfTokensRemoved = base.GetNumberOfTokensRemoved(storedResults);
+            int numberOfTokensRemoved = GetNumberOfTokensRemoved(storedResults);
             if (numberOfTokensRemoved == 5)
             {
-                coroutine = base.GameController.GainHP(this.DecisionMaker, card => card.IsHero, 1, cardSource: base.GetCardSource());
+                coroutine = GameController.GainHP(this.DecisionMaker, card => card.IsHero, 1, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(coroutine);
@@ -47,8 +47,8 @@ namespace SotmWorkshop.Moonwolf
             IncreaseDamageStatusEffect increaseDamageStatusEffect = new IncreaseDamageStatusEffect(1);
             increaseDamageStatusEffect.SourceCriteria.IsHero = true;
             increaseDamageStatusEffect.SourceCriteria.IsTarget = true;
-            increaseDamageStatusEffect.UntilStartOfNextTurn(base.TurnTaker);
-            coroutine = base.AddStatusEffect(increaseDamageStatusEffect);
+            increaseDamageStatusEffect.UntilStartOfNextTurn(TurnTaker);
+            coroutine = AddStatusEffect(increaseDamageStatusEffect);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(coroutine);

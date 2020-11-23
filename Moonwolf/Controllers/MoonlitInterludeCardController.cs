@@ -16,11 +16,11 @@ namespace SotmWorkshop.Moonwolf
 
         public override IEnumerator Play()
         {
-            LinqCardCriteria cardCriteria = new LinqCardCriteria(card => card.IsHeroCharacterCard && card.Owner != this.HeroTurnTaker, "hero character card");
+            LinqCardCriteria cardCriteria = new LinqCardCriteria(card => card.IsHeroCharacterCard && card.Owner != HeroTurnTaker, "hero character card");
             List<SelectCardDecision> storedResults = new List<SelectCardDecision>();
 
-            IEnumerator selection = base.GameController.SelectCardAndStoreResults(this.HeroTurnTakerController, SelectionType.GainHP,
-                cardCriteria, storedResults, false, cardSource: base.GetCardSource());
+            IEnumerator selection = base.GameController.SelectCardAndStoreResults(DecisionMaker, SelectionType.GainHP,
+                cardCriteria, storedResults, false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(selection);
@@ -35,8 +35,8 @@ namespace SotmWorkshop.Moonwolf
                 //Moonwolf and another Hero character card regain 2 HP,
                 Card selected = storedResults.First().SelectedCard;
                 TurnTaker selectedTurnTaker = selected.Owner;
-                IEnumerator coroutine1 = base.GameController.GainHP(selected, 2, cardSource: base.GetCardSource());
-                IEnumerator coroutine2 = base.GameController.GainHP(this.CharacterCard, 2, cardSource: base.GetCardSource());
+                IEnumerator coroutine1 = GameController.GainHP(selected, 2, cardSource: GetCardSource());
+                IEnumerator coroutine2 = GameController.GainHP(CharacterCard, 2, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(coroutine1);
@@ -49,9 +49,9 @@ namespace SotmWorkshop.Moonwolf
                 }
 
                 //then choose one of these Hero's players to play a card.
-                selection = base.GameController.SelectHeroToPlayCard(this.HeroTurnTakerController,
-                                additionalCriteria: new LinqTurnTakerCriteria(tt => tt == this.HeroTurnTaker || tt == selectedTurnTaker, "a pleasent evening"),
-                                cardSource: base.GetCardSource());
+                selection = GameController.SelectHeroToPlayCard(DecisionMaker,
+                                additionalCriteria: new LinqTurnTakerCriteria(tt => tt == HeroTurnTaker || tt == selectedTurnTaker, "a pleasent evening"),
+                                cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(selection);

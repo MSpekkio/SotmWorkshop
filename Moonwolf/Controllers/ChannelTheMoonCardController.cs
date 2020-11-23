@@ -16,15 +16,15 @@ namespace SotmWorkshop.Moonwolf
 
         public override void AddTriggers()
         {
-            base.AddRedirectDamageTrigger(dd => dd.Target.IsHero && dd.Target != base.CharacterCard, () => base.CharacterCard, false);
-            base.AddTrigger<DealDamageAction>(dd => dd.Target == base.CharacterCard, DealDamageReponse, TriggerType.WouldBeDealtDamage, TriggerTiming.Before);
-            base.AddStartOfTurnTrigger(tt => tt == base.TurnTaker, p => base.GameController.DestroyCard(this.DecisionMaker, base.Card, cardSource: base.GetCardSource()), TriggerType.DestroySelf);
+            base.AddRedirectDamageTrigger(dd => dd.Target.IsHero && dd.Target != CharacterCard, () => CharacterCard, false);
+            base.AddTrigger<DealDamageAction>(dd => dd.Target == CharacterCard, DealDamageReponse, TriggerType.WouldBeDealtDamage, TriggerTiming.Before);
+            base.AddStartOfTurnTrigger(tt => tt == TurnTaker, p => GameController.DestroyCard(DecisionMaker, Card, cardSource: GetCardSource()), TriggerType.DestroySelf);
         }
 
         private IEnumerator DealDamageReponse(DealDamageAction dealDamage)
         {
             List<RemoveTokensFromPoolAction> storedResults = new List<RemoveTokensFromPoolAction>();
-            IEnumerator coroutine = base.GameController.RemoveTokensFromPool(this.PullOfTheMoon, dealDamage.Amount, storedResults, optional: true, cardSource: base.GetCardSource());
+            IEnumerator coroutine = GameController.RemoveTokensFromPool(PullOfTheMoon, dealDamage.Amount, storedResults, optional: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(coroutine);
@@ -33,9 +33,9 @@ namespace SotmWorkshop.Moonwolf
             {
                 base.GameController.ExhaustCoroutine(coroutine);
             }
-            if (base.DidRemoveTokens(storedResults, dealDamage.Amount))
+            if (DidRemoveTokens(storedResults, dealDamage.Amount))
             {
-                coroutine = this.CancelAction(dealDamage, isPreventEffect: true);
+                coroutine = CancelAction(dealDamage, isPreventEffect: true);
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(coroutine);

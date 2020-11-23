@@ -18,7 +18,7 @@ namespace SotmWorkshop.Moonwolf
         {
             List<DealDamageAction> storedResult = new List<DealDamageAction>();
             //Moonwolf deals herself 2 Melee Damage, then adds 3 Tokens to the card Pull of the Moon.
-            IEnumerator coroutine = base.GameController.DealDamageToSelf(this.DecisionMaker, c => c == this.CharacterCard, 2, DamageType.Melee, cardSource: base.GetCardSource());
+            IEnumerator coroutine = GameController.DealDamageToSelf(DecisionMaker, c => c == CharacterCard, 2, DamageType.Melee, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(coroutine);
@@ -27,7 +27,7 @@ namespace SotmWorkshop.Moonwolf
             {
                 base.GameController.ExhaustCoroutine(coroutine);
             }
-            coroutine = base.GameController.AddTokensToPool(base.PullOfTheMoon, 3, base.GetCardSource());
+            coroutine = GameController.AddTokensToPool(PullOfTheMoon, 3, GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(coroutine);
@@ -38,7 +38,7 @@ namespace SotmWorkshop.Moonwolf
             }
 
             //You may play a card.
-            coroutine = base.SelectAndPlayCardFromHand(this.DecisionMaker);
+            coroutine = SelectAndPlayCardFromHand(DecisionMaker);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(coroutine);

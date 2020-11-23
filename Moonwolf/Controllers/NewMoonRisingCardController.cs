@@ -17,10 +17,9 @@ namespace SotmWorkshop.Moonwolf
 
         public override void AddTriggers()
         {
-            Func<int> numberOfHitPointsToRestoreTo = () => PullOfTheMoon.CurrentValue;
-            base.AddWhenHPDropsToZeroOrBelowRestoreHPTriggers(
+            AddWhenHPDropsToZeroOrBelowRestoreHPTriggers(
                 () => CharacterCard,
-                numberOfHitPointsToRestoreTo,
+                () => PullOfTheMoon.CurrentValue,
                 true,
                 ga => GameController.RemoveTokensFromPool(PullOfTheMoon, PullOfTheMoon.CurrentValue, gameAction: ga, cardSource: GetCardSource())
             );

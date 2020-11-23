@@ -18,11 +18,11 @@ namespace SotmWorkshop.Moonwolf
         {
             IEnumerator coroutine;
             //Remove up to 5 tokens from Pull of the Moon.
-            if (base.PullOfTheMoon.CurrentValue > 0)
+            if (PullOfTheMoon.CurrentValue > 0)
             {
-                int max = base.PullOfTheMoon.CurrentValue < 5 ? base.PullOfTheMoon.CurrentValue : 5;
+                int max = PullOfTheMoon.CurrentValue < 5 ? PullOfTheMoon.CurrentValue : 5;
                 List<SelectNumberDecision> selectNumber = new List<SelectNumberDecision>();
-                coroutine = this.GameController.SelectNumber(this.DecisionMaker, SelectionType.RemoveTokens, 0, max, cardSource: this.GetCardSource());
+                coroutine = GameController.SelectNumber(DecisionMaker, SelectionType.RemoveTokens, 0, max, cardSource: GetCardSource());
                 if (this.UseUnityCoroutines)
                 {
                     yield return this.GameController.StartCoroutine(coroutine);
@@ -34,7 +34,7 @@ namespace SotmWorkshop.Moonwolf
                 int amount = selectNumber.FirstOrDefault()?.SelectedNumber ?? 0;
                 if (amount > 0)
                 {
-                    coroutine = this.GameController.RemoveTokensFromPool(base.PullOfTheMoon, amount, cardSource: this.GetCardSource());
+                    coroutine = GameController.RemoveTokensFromPool(PullOfTheMoon, amount, cardSource: GetCardSource());
                     if (this.UseUnityCoroutines)
                     {
                         yield return this.GameController.StartCoroutine(coroutine);
@@ -45,7 +45,7 @@ namespace SotmWorkshop.Moonwolf
                     }
 
                     //Reveal X cards where the X is the number of tokens removed, put one card into play and the remaining cards into the trash.
-                    coroutine = base.RevealCards_SelectSome_MoveThem_DiscardTheRest(base.DecisionMaker, base.TurnTakerController, base.TurnTaker.Deck, card => true, amount, 1, false, true, true, "cards");
+                    coroutine = RevealCards_SelectSome_MoveThem_DiscardTheRest(DecisionMaker, TurnTakerController, TurnTaker.Deck, card => true, amount, 1, false, true, true, "cards");
                     if (this.UseUnityCoroutines)
                     {
                         yield return this.GameController.StartCoroutine(coroutine);
@@ -58,7 +58,7 @@ namespace SotmWorkshop.Moonwolf
             }
             else
             {
-                coroutine = this.GameController.SendMessageAction("There are no tokens in " + base.PullOfTheMoon.Name + " to remove.", Priority.High, this.GetCardSource(), null, true);
+                coroutine = this.GameController.SendMessageAction("There are no tokens in " + PullOfTheMoon.Name + " to remove.", Priority.High, GetCardSource(), null, true);
                 if (this.UseUnityCoroutines)
                 {
                     yield return this.GameController.StartCoroutine(coroutine);
