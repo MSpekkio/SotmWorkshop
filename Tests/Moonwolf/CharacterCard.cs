@@ -84,8 +84,6 @@ namespace SotmWorkshop.Moonwolf
 
             DealDamage(baron.CharacterCard, moonwolf, 99, DamageType.Psychic);
 
-            var mdp = GetMobileDefensePlatform().Card;
-
             var card = PutIntoPlay("TrafficPileup");
 
             DecisionSelectCard = card;
