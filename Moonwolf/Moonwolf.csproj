@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="DeckList\MoonwolfDeckList.json" />
+    <None Remove="DeckLists\MoonwolfDeckList.json" />
     <None Remove="manifest.json" />
   </ItemGroup>
 
@@ -19,10 +19,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="DeckList\MoonwolfDeckList.json">
-		<LogicalName>SotmWorkshop.DeckLists.%(EmbeddedResource.FileName).json</LogicalName>
+	<ItemGroup>
+    <EmbeddedResource Include="DeckLists\MoonwolfDeckList.json">
+		<LogicalName>SotmWorkshop.DeckLists.MoonwolfDeckList.json</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -10,45 +10,89 @@ using Handelabra.Sentinels.UnitTest;
 namespace SotmWorkshop.Moonwolf
 {
     [TestFixture()]
-    public class CharacterCard : BaseTest
+    public class CharacterCard : Base
     {
-     /*   
         [Test()]
-        public void TestModWorks()
+        public void Innate()
         {
-            SetupGameController("Workshopping.TheBaddies", "Workshopping.MigrantCoder", "Workshopping.DevStream");
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Legacy", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
 
-            Assert.AreEqual(3, this.GameController.TurnTakerControllers.Count());
+            var mdp = GetMobileDefensePlatform().Card;
 
-            Assert.IsNotNull(baddies);
-            Assert.IsInstanceOf(typeof(TheBaddiesTurnTakerController), baddies);
-            Assert.IsInstanceOf(typeof(TheBaddiesCharacterCardController), baddies.CharacterCardController);
+            QuickHPStorage(baron.CharacterCard, moonwolf.CharacterCard, legacy.CharacterCard, bunker.CharacterCard, mdp);
 
-            Assert.IsNotNull(migrant);
-            Assert.IsInstanceOf(typeof(MigrantCoderTurnTakerController), migrant);
-            Assert.IsInstanceOf(typeof(MigrantCoderCharacterCardController), migrant.CharacterCardController);
+            DecisionSelectTarget = mdp;
+            UsePower(moonwolf.CharacterCard, 0);
 
-            Assert.IsNotNull(env);
-
-            Assert.AreEqual(40, baddies.CharacterCard.HitPoints);
-            Assert.AreEqual(39, migrant.CharacterCard.HitPoints);
-            QuickHPStorage(baddies, migrant);
-
-            // Always deals 5 psychic!
-            PlayTopCard(baddies);
-
-            QuickHPCheck(-5, -6); // Nemesis!
-
-            PlayTopCard(env);
-
-            // Deals 1 damage
-            QuickHPCheck(-1, -1);
-
-            // Heals 1 at the start of the environment turn
-            GoToStartOfTurn(env);
-            QuickHPCheck(1, 1);
+            QuickHPCheck(0, -1, 0, 0, -2);
         }
-     */
 
+        [Test()]
+        public void Incap1()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Legacy", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            DealDamage(baron.CharacterCard, moonwolf, 99, DamageType.Psychic);
+
+            var mdp = GetMobileDefensePlatform().Card;
+            SetHitPoints(mdp, 5);
+
+            QuickHPStorage(baron.CharacterCard, legacy.CharacterCard, bunker.CharacterCard, mdp);
+
+            GoToUseIncapacitatedAbilityPhase(moonwolf);
+
+            DecisionSelectCard = mdp;
+
+            UseIncapacitatedAbility(moonwolf, 0);
+
+            QuickHPCheck(0, 0, 0, 1);
+        }
+
+        [Test()]
+        public void Incap2()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Legacy", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            DealDamage(baron.CharacterCard, moonwolf, 99, DamageType.Psychic);
+
+            var mdp = GetMobileDefensePlatform().Card;
+            var strike = PutInHand("BackFistStrike");
+            var top = legacy.TurnTaker.Deck.TopCard;
+
+            QuickHPStorage(baron.CharacterCard, legacy.CharacterCard, bunker.CharacterCard, mdp);
+            QuickHandStorage(legacy, bunker, scholar);
+            GoToUseIncapacitatedAbilityPhase(moonwolf);
+
+            DecisionSelectCards = new Card[] { legacy.CharacterCard, strike, mdp };
+
+            UseIncapacitatedAbility(moonwolf, 1);
+
+            AssertInHand(top);
+            AssertInTrash(strike);
+            QuickHandCheck(0, 0, 0);
+            QuickHPCheck(0, -2, 0, -4);
+        }
+
+        [Test()]
+        public void Incap3()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Legacy", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            DealDamage(baron.CharacterCard, moonwolf, 99, DamageType.Psychic);
+
+            var mdp = GetMobileDefensePlatform().Card;
+
+            var card = PutIntoPlay("TrafficPileup");
+
+            DecisionSelectCard = card;
+
+            UseIncapacitatedAbility(moonwolf, 2);
+
+            AssertInTrash(card);
+        }
     }
 }
