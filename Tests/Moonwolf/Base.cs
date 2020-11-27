@@ -15,6 +15,7 @@ namespace SotmWorkshop.Moonwolf
     {
         protected HeroTurnTakerController moonwolf { get { return FindHero("Moonwolf"); } }
 
+        protected TokenPool pullofthemoon => FindTokenPool("PullOfTheMoon", "PullOfTheMoon");
         protected IEnumerable<Card> AssertCardsHaveKeyword(string keyword, params string[] identifers)
         {
             return identifers.Select(ids =>

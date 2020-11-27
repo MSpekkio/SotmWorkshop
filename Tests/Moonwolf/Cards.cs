@@ -119,5 +119,29 @@ namespace SotmWorkshop.Moonwolf
             QuickHPCheck(0, 0, 0, 0, 0, -1);
         }
 
+
+        [Test]
+        public void DrawOutOfTheBeast_NoTokens()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Bunker", "TheScholar", "MobileDefensePlatform");
+            StartGame();
+
+            var mdp = GetMobileDefensePlatform().Card;
+
+            GoToEndOfTurn(baron);
+
+            int handCount = GetNumberOfCardsInHand(moonwolf);
+            int trashCount = GetNumberOfCardsInTrash(moonwolf);
+            int playCount = GetNumberOfCardsInPlay(moonwolf);
+            AssertTokenPoolCount(pullofthemoon, 0);
+
+            var card = PlayCard("DrawOutTheBeast");
+            AssertInTrash(card);
+
+            AssertNumberOfCardsInHand(moonwolf, handCount);
+            AssertNumberOfCardsInPlay(moonwolf, playCount);
+            AssertNumberOfCardsInTrash(moonwolf, trashCount + 1);
+            AssertTokenPoolCount(pullofthemoon, 0);
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace SotmWorkshop.Moonwolf
 {
     public abstract class MoonwolfCardController : CardController
     {
-        protected static readonly string PullOfTheMoonIdentifier = "PullOfTheMoonPool";
+        protected static readonly string PullOfTheMoonIdentifier = "PullOfTheMoon";
         protected static readonly string FeralKeyword = "feral";
 
         protected MoonwolfCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
@@ -18,7 +18,7 @@ namespace SotmWorkshop.Moonwolf
         {
             get
             {
-                return base.CharacterCard.FindTokenPool(PullOfTheMoonIdentifier);
+                return HeroTurnTaker.FindCard(PullOfTheMoonIdentifier).FindTokenPool(PullOfTheMoonIdentifier);
             }
         }
 
