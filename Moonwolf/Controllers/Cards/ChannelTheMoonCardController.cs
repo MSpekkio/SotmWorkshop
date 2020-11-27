@@ -9,8 +9,7 @@ namespace SotmWorkshop.Moonwolf
 {
     public class ChannelTheMoonCardController : MoonwolfCardController
     {
-        public ChannelTheMoonCardController(Card card, TurnTakerController turnTakerController)
-         : base(card, turnTakerController)
+        public ChannelTheMoonCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
         }
 
