@@ -178,5 +178,97 @@ namespace SotmWorkshop.Moonwolf
             AssertTokenPoolCount(pullofthemoon, 0);
         }
 
+        [Test]
+        public void ForcedChange_ChooseHand()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Bunker", "TheScholar", "MobileDefensePlatform");
+            StartGame();
+
+            var cycle = GetCard("CycleOfLife");
+            DecisionSelectCard = cycle;
+            DecisionMoveCardDestination = new MoveCardDestination(moonwolf.HeroTurnTaker.Hand);
+            QuickShuffleStorage(moonwolf);
+            var card = PlayCard("ForcedChange");
+            AssertInTrash(card);
+            AssertInHand(cycle);
+            QuickShuffleCheck(1);
+        }
+
+        [Test]
+        public void ForcedChange_ChoosePlay()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Bunker", "TheScholar", "MobileDefensePlatform");
+            StartGame();
+
+            var cycle = GetCard("CycleOfLife");
+            DecisionSelectCard = cycle;
+            DecisionMoveCardDestination = new MoveCardDestination(moonwolf.HeroTurnTaker.PlayArea);
+            QuickShuffleStorage(moonwolf);
+            var card = PlayCard("ForcedChange");
+            AssertInTrash(card);
+            AssertInPlayArea(moonwolf, cycle);
+            QuickShuffleCheck(1);
+        }
+
+        [Test]
+        //[Ignore("TODO")]
+        public void FrenziedStrikes_SameTurn()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            var mdp = GetMobileDefensePlatform().Card;
+
+            GoToPlayCardPhase(moonwolf);
+            
+            var strikes = PutIntoPlay("FrenziedStrikes");
+
+            GoToUsePowerPhase(moonwolf);
+            PrintSeparator("Start");
+
+            DecisionSelectTarget = mdp;
+            QuickHPStorage(moonwolf.CharacterCard, mdp);
+            SelectAndUsePower(moonwolf, out bool skipped);
+            QuickHPCheck(-1, -2);
+
+            QuickHPStorage(moonwolf.CharacterCard, mdp);
+            SelectAndUsePower(moonwolf, out skipped);
+            QuickHPCheck(-2, -2);
+            
+            GoToStartOfTurn(bunker);
+            AssertNumberOfStatusEffectsInPlay(0);
+        }
+
+        [Test]
+        //[Ignore("TODO")]
+        public void FrenziedStrikes_PlayedOutOfTurn()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            var mdp = GetMobileDefensePlatform().Card;
+
+            var strikes = PutIntoPlay("FrenziedStrikes");
+            AssertNumberOfStatusEffectsInPlay(0);
+
+            GoToStartOfTurn(moonwolf);
+
+            AssertNumberOfStatusEffectsInPlay(1);
+            GoToPlayCardPhase(moonwolf);
+            GoToUsePowerPhase(moonwolf);
+
+            DecisionSelectTarget = mdp;
+            QuickHPStorage(moonwolf.CharacterCard, mdp);
+            SelectAndUsePower(moonwolf, out bool skipped);
+            QuickHPCheck(-1, -2);
+
+            QuickHPStorage(moonwolf.CharacterCard, mdp);
+            SelectAndUsePower(moonwolf, out skipped);
+            QuickHPCheck(-2, -2);
+
+            GoToStartOfTurn(bunker);
+            AssertNumberOfStatusEffectsInPlay(0);
+        }
+
     }
 }

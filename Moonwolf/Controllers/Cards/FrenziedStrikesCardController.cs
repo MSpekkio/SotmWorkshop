@@ -10,34 +10,21 @@ namespace SotmWorkshop.Moonwolf
 {
     public class FrenziedStrikesCardController : MoonwolfCardController
     {
-        public FrenziedStrikesCardController(Card card, TurnTakerController turnTakerController)
-            : base(card, turnTakerController)
+        public FrenziedStrikesCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
-            base.GameController.AddCardControllerToList(CardControllerListType.IncreasePhaseActionCount, this);
-
         }
 
-        private StatusEffect GrantACharacterPowerUsage()
+        private IEnumerator GrantACharacterPowerUsage()
         {
             AllowSetNumberOfPowerUseStatusEffect statusEffect = new AllowSetNumberOfPowerUseStatusEffect(2);
             statusEffect.UsePowerCriteria.IsSpecificCard = CharacterCard;
             statusEffect.UsePowerCriteria.CardSource = CharacterCard;
             statusEffect.UntilThisTurnIsOver(GameController.Game);
+            statusEffect.UntilCardLeavesPlay(Card);
             statusEffect.CardDestroyedExpiryCriteria.Card = CharacterCard;
+            statusEffect.CardSource = Card;
             statusEffect.NumberOfUses = 1;
 
-            return statusEffect;
-        }
-
-        public override void AddTriggers()
-        {
-
-        }
-
-
-        public override IEnumerator Play()
-        {
-            var statusEffect = GrantACharacterPowerUsage();
             IEnumerator coroutine = AddStatusEffect(statusEffect);
             if (base.UseUnityCoroutines)
             {
@@ -47,79 +34,49 @@ namespace SotmWorkshop.Moonwolf
             {
                 base.GameController.ExhaustCoroutine(coroutine);
             }
+        }
+
+        public override void AddTriggers()
+        {
+            AddStartOfTurnTrigger(tt => tt == TurnTaker, pca => GrantACharacterPowerUsage(), TriggerType.IncreasePowerNumberOfUses);
+            AddTrigger<UsePowerAction>(upa => Game.ActiveTurnTaker == TurnTaker && upa.HeroUsingPower == HeroTurnTakerController && upa.Power.CardController == CharacterCardController && upa.Power.Index == 0, UsePowerResponse, TriggerType.DealDamage, TriggerTiming.After);
+        }
+
+        private IEnumerator UsePowerResponse(UsePowerAction action)
+        {
+            var list = Game.Journal.UsePowerEntriesThisTurn().Where(e => e.PowerUser == HeroTurnTaker && e.CardWithPower == CharacterCard && e.PowerIndex == 0).ToList();
+            
+            //only damage on the second usage in the round.
+            if (list.Count == 2)
+            {
+                var coroutine = DealDamage(CharacterCard, CharacterCard, 1, DamageType.Melee, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(coroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(coroutine);
+                }
+            }
             yield break;
-            /*
-			if (base.GameController.ActiveTurnTaker == base.TurnTaker)
-			{
-				AllowSetNumberOfPowerUseStatusEffect allowSetNumberOfPowerUseStatusEffect = new AllowSetNumberOfPowerUseStatusEffect(2);
-				allowSetNumberOfPowerUseStatusEffect.UsePowerCriteria.IsSpecificCard = base.CharacterCard;
-				allowSetNumberOfPowerUseStatusEffect.UsePowerCriteria.CardSource = base.CharacterCard;
-				allowSetNumberOfPowerUseStatusEffect.UntilThisTurnIsOver(base.GameController.Game);
-				allowSetNumberOfPowerUseStatusEffect.CardDestroyedExpiryCriteria.Card = base.CharacterCard;
-				allowSetNumberOfPowerUseStatusEffect.NumberOfUses = 1;
-				coroutine = AddStatusEffect(allowSetNumberOfPowerUseStatusEffect);
-				if (base.UseUnityCoroutines)
-				{
-					yield return base.GameController.StartCoroutine(coroutine);
-				}
-				else
-				{
-					base.GameController.ExhaustCoroutine(coroutine);
-				}
-				yield break;
-			}
+        }
 
-			int timesUsed = base.Journal.UsePowerEntriesThisTurn()
-								.Where(e => e.CardWithPower == base.CharacterCard)
-								.Count();
-
-			if (timesUsed < 2)
-			{
-				List<YesNoCardDecision> storedResults = new List<YesNoCardDecision>();
-				SelectionType type = SelectionType.UsePowerTwice;
-				if (timesUsed == 1)
-				{
-					type = SelectionType.UsePowerAgain;
-				}
-				IEnumerator coroutine2 = base.GameController.MakeYesNoCardDecision(base.HeroTurnTakerController, type, base.CharacterCard, null, storedResults, null, GetCardSource());
-				if (base.UseUnityCoroutines)
-				{
-					yield return base.GameController.StartCoroutine(coroutine2);
-				}
-				else
-				{
-					base.GameController.ExhaustCoroutine(coroutine2);
-				}
-				if (!DidPlayerAnswerYes(storedResults))
-				{
-					yield break;
-				}
-				for (int i = 0; i < 2 - timesUsed; i++)
-				{
-					coroutine2 = UsePowerOnOtherCard(base.CharacterCard);
-					if (base.UseUnityCoroutines)
-					{
-						yield return base.GameController.StartCoroutine(coroutine2);
-					}
-					else
-					{
-						base.GameController.ExhaustCoroutine(coroutine2);
-					}
-				}
-			}
-			else
-			{
-				IEnumerator coroutine3 = base.GameController.SendMessageAction(base.TurnTaker.Name + " has already used " + base.CharacterCard.Definition.Body.First() + " twice this turn.", Priority.High, GetCardSource(), null, true);
-				if (base.UseUnityCoroutines)
-				{
-					yield return base.GameController.StartCoroutine(coroutine3);
-				}
-				else
-				{
-					base.GameController.ExhaustCoroutine(coroutine3);
-				}
-			}
-			*/
+        public override IEnumerator Play()
+        {
+            if (Game.ActiveTurnTaker == TurnTaker && Game.ActiveTurnPhase.Phase != Phase.Start && Game.ActiveTurnPhase.Phase != Phase.BeforeStart)
+            {
+                IEnumerator coroutine = GrantACharacterPowerUsage();
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(coroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(coroutine);
+                }
+            }
+            yield break;
         }
     }
 }
