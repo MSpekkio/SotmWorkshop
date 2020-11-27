@@ -143,5 +143,40 @@ namespace SotmWorkshop.Moonwolf
             AssertNumberOfCardsInTrash(moonwolf, trashCount + 1);
             AssertTokenPoolCount(pullofthemoon, 0);
         }
+
+        [Test]
+        public void DrawOutOfTheBeast_Tokens(
+            [Values(1, 3, 5)] int tokens
+            )
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Bunker", "TheScholar", "MobileDefensePlatform");
+            StartGame();
+
+            var priest = PutOnDeck("MoonPriestess");
+
+            var mdp = GetMobileDefensePlatform().Card;
+
+            AddTokensToPool(pullofthemoon, tokens);
+
+            GoToEndOfTurn(baron);
+
+            int handCount = GetNumberOfCardsInHand(moonwolf);
+            int trashCount = GetNumberOfCardsInTrash(moonwolf);
+            int playCount = GetNumberOfCardsInPlay(moonwolf);
+            AssertTokenPoolCount(pullofthemoon, tokens);
+
+            DecisionSelectNumber = tokens;
+            DecisionSelectCard = priest;
+            var card = PlayCard("DrawOutTheBeast");
+            AssertInTrash(card);
+            AssertInPlayArea(moonwolf, priest);
+
+            AssertNumberOfCardsInHand(moonwolf, handCount);
+            AssertNumberOfCardsInPlay(moonwolf, playCount + 1);
+            AssertNumberOfCardsInTrash(moonwolf, trashCount + 1 + tokens - 1);
+            AssertNumberOfCardsInRevealed(moonwolf, 0);
+            AssertTokenPoolCount(pullofthemoon, 0);
+        }
+
     }
 }
