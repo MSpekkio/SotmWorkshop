@@ -12,11 +12,12 @@ namespace SotmWorkshop.Moonwolf
         public LunasAvatarCardController(Card card, TurnTakerController turnTakerController)
          : base(card, turnTakerController)
         {
+            SpecialStringMaker.ShowTokenPool(PullOfTheMoon);
         }
 
         public override void AddTriggers()
         {
-            base.AddIncreaseDamageTrigger(dealDamage => dealDamage.DamageType == DamageType.Melee && dealDamage.DamageSource.IsSameCard(CharacterCard), 2);
+            base.AddIncreaseDamageTrigger(dealDamage => !dealDamage.Target.IsHero && dealDamage.DamageType == DamageType.Melee && dealDamage.DamageSource.IsSameCard(CharacterCard), 2);
 
             base.AddStartOfTurnTrigger(tt => tt == TurnTaker, p => RemoveTokensOrDestroyThisCardResponse(p), TriggerType.DestroySelf);
         }
@@ -33,8 +34,20 @@ namespace SotmWorkshop.Moonwolf
             {
                 base.GameController.ExhaustCoroutine(coroutine);
             }
-            if (!base.DidRemoveTokens(storedResults, 3))
+
+            int numberOfTokens = GetNumberOfTokensRemoved(storedResults);
+            if (numberOfTokens != 3)
             {
+                coroutine = SendMessageAboutInsufficientTokens(numberOfTokens, $"{Card.Title} will be destroyed.");
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(coroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(coroutine);
+                }
+
                 coroutine = GameController.DestroyCard(DecisionMaker, Card, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {

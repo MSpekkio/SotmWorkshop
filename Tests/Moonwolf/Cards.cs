@@ -211,7 +211,6 @@ namespace SotmWorkshop.Moonwolf
         }
 
         [Test]
-        //[Ignore("TODO")]
         public void FrenziedStrikes_SameTurn()
         {
             SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Bunker", "TheScholar", "Megalopolis");
@@ -220,7 +219,7 @@ namespace SotmWorkshop.Moonwolf
             var mdp = GetMobileDefensePlatform().Card;
 
             GoToPlayCardPhase(moonwolf);
-            
+
             var strikes = PutIntoPlay("FrenziedStrikes");
 
             GoToUsePowerPhase(moonwolf);
@@ -234,13 +233,12 @@ namespace SotmWorkshop.Moonwolf
             QuickHPStorage(moonwolf.CharacterCard, mdp);
             SelectAndUsePower(moonwolf, out skipped);
             QuickHPCheck(-2, -2);
-            
+
             GoToStartOfTurn(bunker);
             AssertNumberOfStatusEffectsInPlay(0);
         }
 
         [Test]
-        //[Ignore("TODO")]
         public void FrenziedStrikes_PlayedOutOfTurn()
         {
             SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Bunker", "TheScholar", "Megalopolis");
@@ -268,6 +266,134 @@ namespace SotmWorkshop.Moonwolf
 
             GoToStartOfTurn(bunker);
             AssertNumberOfStatusEffectsInPlay(0);
+        }
+
+        [Test]
+        public void HowlAtTheMoon_RemoveTokens()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            var mdp = GetMobileDefensePlatform().Card;
+
+            SetHitPoints(baron, 30);
+            SetHitPoints(moonwolf, 20);
+            SetHitPoints(bunker, 20);
+            SetHitPoints(scholar, 20);
+            SetHitPoints(mdp, 8);
+
+            AssertNumberOfStatusEffectsInPlay(0);
+            AddTokensToPool(pullofthemoon, 10);
+
+            GoToPlayCardPhase(moonwolf);
+
+            QuickHPStorage(baron.CharacterCard, moonwolf.CharacterCard, bunker.CharacterCard, scholar.CharacterCard, mdp);
+
+            DecisionYesNo = true;
+            var card = PutIntoPlay("HowlAtTheMoon");
+            AssertInTrash(card);
+
+            QuickHPCheck(0, 1, 1, 1, 0);
+
+            AssertTokenPoolCount(pullofthemoon, 5);
+        }
+
+        [Test]
+        public void HowlAtTheMoon_NoTokens()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            var mdp = GetMobileDefensePlatform().Card;
+
+            SetHitPoints(baron, 30);
+            SetHitPoints(moonwolf, 20);
+            SetHitPoints(bunker, 20);
+            SetHitPoints(scholar, 20);
+            SetHitPoints(mdp, 8);
+
+            AssertNumberOfStatusEffectsInPlay(0);
+            AddTokensToPool(pullofthemoon, 10);
+
+            GoToPlayCardPhase(moonwolf);
+
+            QuickHPStorage(baron.CharacterCard, moonwolf.CharacterCard, bunker.CharacterCard, scholar.CharacterCard, mdp);
+
+            DecisionYesNo = false;
+            var card = PutIntoPlay("HowlAtTheMoon");
+            AssertInTrash(card);
+
+            QuickHPCheck(0, 0, 0, 0, 0);
+
+            AssertTokenPoolCount(pullofthemoon, 10);
+        }
+
+        [Test]
+        public void HowlAtTheMoon_InsufficientTokens()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            var mdp = GetMobileDefensePlatform().Card;
+
+            SetHitPoints(baron, 30);
+            SetHitPoints(moonwolf, 20);
+            SetHitPoints(bunker, 20);
+            SetHitPoints(scholar, 20);
+            SetHitPoints(mdp, 8);
+
+            AssertNumberOfStatusEffectsInPlay(0);
+            AddTokensToPool(pullofthemoon, 3);
+
+            GoToPlayCardPhase(moonwolf);
+
+            QuickHPStorage(baron.CharacterCard, moonwolf.CharacterCard, bunker.CharacterCard, scholar.CharacterCard, mdp);
+
+            DecisionYesNo = true;
+            var card = PutIntoPlay("HowlAtTheMoon");
+            AssertInTrash(card);
+
+            QuickHPCheck(0, 0, 0, 0, 0);
+
+            AssertTokenPoolCount(pullofthemoon, 0);
+        }
+
+        [Test]
+        public void HowlAtTheMoon_IncreaseDamage()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            var mdp = GetMobileDefensePlatform().Card;
+            AssertNumberOfStatusEffectsInPlay(0);
+            AddTokensToPool(pullofthemoon, 10);
+
+            GoToPlayCardPhase(moonwolf);
+
+            DecisionYesNo = true;
+            var card = PutIntoPlay("HowlAtTheMoon");
+            AssertInTrash(card);
+
+            AssertNumberOfStatusEffectsInPlay(1);
+
+            QuickHPStorage(baron.CharacterCard, moonwolf.CharacterCard, bunker.CharacterCard, scholar.CharacterCard, mdp);
+            DealDamage(bunker, mdp, 1, DamageType.Cold);
+            QuickHPCheck(0, 0, 0, 0, -2);
+
+            QuickHPUpdate();
+            DealDamage(mdp, bunker, 1, DamageType.Cold);
+            QuickHPCheck(0, 0, -1, 0, 0);
+
+            GoToStartOfTurn(moonwolf);
+            AssertNumberOfStatusEffectsInPlay(0);
+
+            QuickHPUpdate();
+            DealDamage(bunker, mdp, 1, DamageType.Cold);
+            QuickHPCheck(0, 0, 0, 0, -1);
+
+            QuickHPUpdate();
+            DealDamage(mdp, bunker, 1, DamageType.Cold);
+            QuickHPCheck(0, 0, -1, 0, 0);
         }
 
     }

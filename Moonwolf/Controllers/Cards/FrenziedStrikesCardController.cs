@@ -21,7 +21,7 @@ namespace SotmWorkshop.Moonwolf
             statusEffect.UsePowerCriteria.CardSource = CharacterCard;
             statusEffect.UntilThisTurnIsOver(GameController.Game);
             statusEffect.UntilCardLeavesPlay(Card);
-            statusEffect.CardDestroyedExpiryCriteria.Card = CharacterCard;
+            statusEffect.UntilTargetLeavesPlay(CharacterCard);
             statusEffect.CardSource = Card;
             statusEffect.NumberOfUses = 1;
 
@@ -39,6 +39,8 @@ namespace SotmWorkshop.Moonwolf
         public override void AddTriggers()
         {
             AddStartOfTurnTrigger(tt => tt == TurnTaker, pca => GrantACharacterPowerUsage(), TriggerType.IncreasePowerNumberOfUses);
+
+            //only trigger the potential damage effect during Moonwolf's turn, and on her innate power
             AddTrigger<UsePowerAction>(upa => Game.ActiveTurnTaker == TurnTaker && upa.HeroUsingPower == HeroTurnTakerController && upa.Power.CardController == CharacterCardController && upa.Power.Index == 0, UsePowerResponse, TriggerType.DealDamage, TriggerTiming.After);
         }
 
@@ -46,7 +48,7 @@ namespace SotmWorkshop.Moonwolf
         {
             var list = Game.Journal.UsePowerEntriesThisTurn().Where(e => e.PowerUser == HeroTurnTaker && e.CardWithPower == CharacterCard && e.PowerIndex == 0).ToList();
             
-            //only damage on the second usage in the round.
+            //only damage on the second usage in the turn.
             if (list.Count == 2)
             {
                 var coroutine = DealDamage(CharacterCard, CharacterCard, 1, DamageType.Melee, cardSource: GetCardSource());
