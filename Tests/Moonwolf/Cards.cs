@@ -396,5 +396,77 @@ namespace SotmWorkshop.Moonwolf
             QuickHPCheck(0, 0, -1, 0, 0);
         }
 
+        [Test]
+        public void LunasAvatar_DamageIncrease()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Legacy", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            var mdp = GetMobileDefensePlatform().Card;
+
+            var card = PlayCard("LunasAvatar");
+            AssertInPlayArea(moonwolf, card);
+
+            QuickHPStorage(baron.CharacterCard, moonwolf.CharacterCard, legacy.CharacterCard, bunker.CharacterCard, mdp);
+
+            DecisionSelectTarget = mdp;
+            UsePower(moonwolf.CharacterCard, 0);
+
+            QuickHPCheck(0, -1, 0, 0, -4);
+        }
+
+
+        [Test]
+        public void LunasAvatar_StartOfTurnInsufficientTokens()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Legacy", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            var mdp = GetMobileDefensePlatform().Card;
+
+            var card = PlayCard("LunasAvatar");
+            AssertInPlayArea(moonwolf, card);
+
+            GoToStartOfTurn(moonwolf);
+            AssertInTrash(card);
+        }
+
+        [Test]
+        public void LunasAvatar_StartOfTurnChooseNo()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Legacy", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            var mdp = GetMobileDefensePlatform().Card;
+            AddTokensToPool(pullofthemoon, 5);
+
+            var card = PlayCard("LunasAvatar");
+            AssertInPlayArea(moonwolf, card);
+
+            DecisionYesNo = false;
+
+            GoToStartOfTurn(moonwolf);
+            AssertTokenPoolCount(pullofthemoon, 5);
+            AssertInTrash(card);
+        }
+
+        [Test]
+        public void LunasAvatar_StartOfTurnChooseYes()
+        {
+            SetupGameController("BaronBlade", "SotmWorkshop.Moonwolf", "Legacy", "Bunker", "TheScholar", "Megalopolis");
+            StartGame();
+
+            var mdp = GetMobileDefensePlatform().Card;
+            AddTokensToPool(pullofthemoon, 5);
+
+            var card = PlayCard("LunasAvatar");
+            AssertInPlayArea(moonwolf, card);
+
+            DecisionYesNo = true;
+
+            GoToStartOfTurn(moonwolf);
+            AssertTokenPoolCount(pullofthemoon, 2);
+            AssertInPlayArea(moonwolf, card);
+        }
     }
 }

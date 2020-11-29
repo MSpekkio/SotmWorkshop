@@ -22,7 +22,7 @@ namespace SotmWorkshop.Moonwolf
             }
         }
 
-        protected IEnumerator SendMessageAboutInsufficientTokens(int numberRemoved, string suffix)
+        protected IEnumerator SendMessageAboutInsufficientTokensRemoved(int numberRemoved, string suffix)
         {
             string str = "There are no tokens to remove";
             if (numberRemoved == 1)
@@ -35,6 +35,31 @@ namespace SotmWorkshop.Moonwolf
             }
             string message = str + ", so " + suffix;
             IEnumerator coroutine = base.GameController.SendMessageAction(message, Priority.Medium, base.GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(coroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(coroutine);
+            }
+            yield break;
+        }
+
+        protected IEnumerator SendMessageAboutInsufficientTokensRequired(int numberRequired, string suffix)
+        {
+            string str = $"{CharacterCard.Title} does not have ";
+            if (numberRequired == 1)
+            {
+                str += "1 token to remove, so ";
+            }
+            else
+            {
+                str += numberRequired.ToString() + " tokens to remove, so ";
+            }
+
+            str += suffix;
+            IEnumerator coroutine = base.GameController.SendMessageAction(str, Priority.Medium, base.GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(coroutine);

@@ -24,21 +24,12 @@ namespace SotmWorkshop.Moonwolf
 
         private IEnumerator RemoveTokensOrDestroyThisCardResponse(PhaseChangeAction phaseChange)
         {
-            List<RemoveTokensFromPoolAction> storedResults = new List<RemoveTokensFromPoolAction>();
-            IEnumerator coroutine = GameController.RemoveTokensFromPool(PullOfTheMoon, 3, storedResults, optional: true, gameAction: phaseChange, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            IEnumerator coroutine;
+            bool destroySelf = true;
+            if (PullOfTheMoon.CurrentValue >= 3)
             {
-                yield return base.GameController.StartCoroutine(coroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(coroutine);
-            }
-
-            int numberOfTokens = GetNumberOfTokensRemoved(storedResults);
-            if (numberOfTokens != 3)
-            {
-                coroutine = SendMessageAboutInsufficientTokens(numberOfTokens, $"{Card.Title} will be destroyed.");
+                List<RemoveTokensFromPoolAction> storedResults = new List<RemoveTokensFromPoolAction>();
+                coroutine = GameController.RemoveTokensFromPool(PullOfTheMoon, 3, storedResults, optional: true, gameAction: phaseChange, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(coroutine);
@@ -47,7 +38,38 @@ namespace SotmWorkshop.Moonwolf
                 {
                     base.GameController.ExhaustCoroutine(coroutine);
                 }
-
+                int numberOfTokens = GetNumberOfTokensRemoved(storedResults);
+                if (numberOfTokens != 3)
+                {
+                    coroutine = SendMessageAboutInsufficientTokensRemoved(numberOfTokens, $"{Card.Title} will be destroyed.");
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(coroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(coroutine);
+                    }
+                }
+                else
+                {
+                    destroySelf = false;
+                }
+            }
+            else
+            {
+                coroutine = SendMessageAboutInsufficientTokensRequired(3, $"{Card.Title} will be destroyed.");
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(coroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(coroutine);
+                }
+            }
+            if (destroySelf)
+            {
                 coroutine = GameController.DestroyCard(DecisionMaker, Card, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {

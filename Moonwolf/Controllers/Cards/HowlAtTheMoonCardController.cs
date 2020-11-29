@@ -20,7 +20,7 @@ namespace SotmWorkshop.Moonwolf
             IEnumerator coroutine;
             if (PullOfTheMoon.CurrentValue == 0)
             {
-                coroutine = SendMessageAboutInsufficientTokens(0, "Moonwolf cannot heal.");
+                coroutine = SendMessageAboutInsufficientTokensRemoved(0, "Moonwolf cannot heal.");
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(coroutine);
@@ -52,7 +52,7 @@ namespace SotmWorkshop.Moonwolf
                 }
                 else
                 {
-                    coroutine = SendMessageAboutInsufficientTokens(numberOfTokensRemoved, "Moonwolf cannot heal.");
+                    coroutine = SendMessageAboutInsufficientTokensRemoved(numberOfTokensRemoved, "Moonwolf cannot heal.");
                 }
 
                 if (base.UseUnityCoroutines)
