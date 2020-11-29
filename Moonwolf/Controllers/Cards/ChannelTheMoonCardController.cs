@@ -22,19 +22,35 @@ namespace SotmWorkshop.Moonwolf
 
         private IEnumerator DealDamageReponse(DealDamageAction dealDamage)
         {
-            List<RemoveTokensFromPoolAction> storedResults = new List<RemoveTokensFromPoolAction>();
-            IEnumerator coroutine = GameController.RemoveTokensFromPool(PullOfTheMoon, dealDamage.Amount, storedResults, optional: true, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            IEnumerator coroutine;
+            if (PullOfTheMoon.CurrentValue >= dealDamage.Amount)
             {
-                yield return base.GameController.StartCoroutine(coroutine);
+                List<RemoveTokensFromPoolAction> storedResults = new List<RemoveTokensFromPoolAction>();
+                coroutine = GameController.RemoveTokensFromPool(PullOfTheMoon, dealDamage.Amount, storedResults, optional: true, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(coroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(coroutine);
+                }
+                if (DidRemoveTokens(storedResults, dealDamage.Amount))
+                {
+                    coroutine = CancelAction(dealDamage, isPreventEffect: true);
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(coroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(coroutine);
+                    }
+                }
             }
             else
             {
-                base.GameController.ExhaustCoroutine(coroutine);
-            }
-            if (DidRemoveTokens(storedResults, dealDamage.Amount))
-            {
-                coroutine = CancelAction(dealDamage, isPreventEffect: true);
+                coroutine = SendMessageAboutInsufficientTokensRequired(dealDamage.Amount, "damage cannot be prevented.");
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(coroutine);
