@@ -1,5 +1,0 @@
-Random notes:
-Card.CharacterCard will be null for TheSentinels.
-
-PullOfTheMoon needs a trigger to destroy itself when Moonwolf is incapacitated, maybe?
-
