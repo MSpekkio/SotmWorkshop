@@ -32,9 +32,9 @@ namespace SotmWorkshop.Moonwolf
             }
             else
             {
-                //Remove 5 Tokens from the card Pull of the Moon.
+                //Remove H Tokens from the card Pull of the Moon.
                 List<RemoveTokensFromPoolAction> storedResults = new List<RemoveTokensFromPoolAction>();
-                coroutine = GameController.RemoveTokensFromPool(PullOfTheMoon, 5, storedResults, optional: true, cardSource: GetCardSource());
+                coroutine = GameController.RemoveTokensFromPool(PullOfTheMoon, Game.H, storedResults, optional: true, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(coroutine);
@@ -46,7 +46,7 @@ namespace SotmWorkshop.Moonwolf
 
                 // If you do, each Hero Target regains 1 HP.
                 int numberOfTokensRemoved = GetNumberOfTokensRemoved(storedResults);
-                if (numberOfTokensRemoved == 5)
+                if (numberOfTokensRemoved == Game.H)
                 {
                     coroutine = GameController.GainHP(this.DecisionMaker, card => card.IsHero, 1, cardSource: GetCardSource());
                 }

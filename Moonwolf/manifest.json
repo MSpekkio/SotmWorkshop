@@ -2,11 +2,11 @@
 	"title": "Moonwolf - Chosen of Luna",
 	"author": "Michael \"MSpekkio\" Telford",
 	"description": "",
-	"namespace":"SotmWorkshop",
-	"dll":"SotmWorkshop.Moonwolf.dll",
-	"decks":{
-		"heroes":[
-			"Moonwolf",
+	"namespace": "SotmWorkshop",
+	"dll": "SotmWorkshop.Moonwolf.dll",
+	"decks": {
+		"heroes": [
+			"Moonwolf"
 		]
 	}
 }

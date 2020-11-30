@@ -325,7 +325,7 @@ namespace SotmWorkshop.Moonwolf
 
             QuickHPCheck(0, 1, 1, 1, 0);
 
-            AssertTokenPoolCount(pullofthemoon, 5);
+            AssertTokenPoolCount(pullofthemoon, 10 - 3);
         }
 
         [Test]
@@ -373,7 +373,7 @@ namespace SotmWorkshop.Moonwolf
             SetHitPoints(mdp, 8);
 
             AssertNumberOfStatusEffectsInPlay(0);
-            AddTokensToPool(pullofthemoon, 3);
+            AddTokensToPool(pullofthemoon, 2);
 
             GoToPlayCardPhase(moonwolf);
 

@@ -12,6 +12,7 @@ namespace SotmWorkshop.Moonwolf
         public RampageCardController(Card card, TurnTakerController turnTakerController)
          : base(card, turnTakerController)
         {
+            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria(c => c.IsOngoing || c.IsEnvironment, "ongoing or environment"));
         }
 
         public override IEnumerator Play()
