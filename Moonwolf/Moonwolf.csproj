@@ -18,6 +18,22 @@
     <Content Include="manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+	  <Content Include="Assets\**">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+	  </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Assets\**" />
+    <Content Remove="Assets\RawArt\**" />
+    <Content Remove="Assets\SpriteTemp\**" />
+    <EmbeddedResource Remove="Assets\**" />
+    <None Remove="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Assets\Moonwolf Image Processing.csv" />
   </ItemGroup>
 	<ItemGroup>
     <EmbeddedResource Include="DeckLists\MoonwolfDeckList.json">
@@ -27,6 +43,7 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="Assets\Moonwolf Image Processing.csv" />
   </ItemGroup>
 
 	<ItemGroup>
