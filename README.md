@@ -16,6 +16,13 @@ Status:
 * Decklist - Complete
 * Art - Card Art Complete
 
+Open Items:
+* Character Art - Since this wasn't part of the original paper deck this is currently out of scope,
+but I'll likely see if I can't find something to use as a thematic placeholder.
+* Balance and Play - Gameplay feedback is welcome, though may not be acted on.
+In particular the ratio of Ongoings, One-shots, and Token effects has gone through numerous tweaks.
+Well thought out feedback is welcome.
+
 
 ## Installation
 Eventually Mods will be able to be downloaded via the Steam Workshop.
