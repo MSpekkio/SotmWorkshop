@@ -64,7 +64,7 @@
 			}],
 			"flavorQuotes": [{
 				"identifier": "Moonwolf",
-				"text": "The moon watches over me, and in turn I draw power from her."
+				"text": "The moon watches over me,{BR}and in turn I draw power from her."
 			}],
 			"flavorReference": "Moonwolf, Supernatural Romance #2"
 		},
@@ -77,7 +77,7 @@
 			],
 			"body": [
 				"{Moonwolf} deals up to 3 targets 2 melee damage each.",
-				"If a Hero Target was damaged by card, {Moonwolf} deals up to 2 targets, 2 melee damage each."
+				"If a Hero Target was damaged by this card, {Moonwolf} deals up to 2 targets 2 melee damage each."
 			],
 			"icons": [
 				"DealDamageMelee"
@@ -118,7 +118,7 @@
 			],
 			"body": [
 				"{Moonwolf} deals one target 4 Melee damage.",
-				"If the Target took damage, {Moonwolf} regains 2 HP."
+				"If the target took damage, {Moonwolf} regains 2 HP."
 			],
 			"icons": [
 				"DealDamageMelee",
@@ -126,7 +126,7 @@
 			],
 			"flavorQuotes": [{
 				"identifier": "Moonwolf",
-				"text": "There's a peace you find when you embrace your true nature."
+				"text": "There's a peace in embracing your true nature."
 			}],
 			"flavorReference": "Moonwolf, The Moonwolf #1"
 		},
@@ -138,7 +138,7 @@
 				"one-shot"
 			],
 			"body": [
-				"Remove 5 tokens from Pull of the Moon. If you do, each Hero Target regains 1 HP.",
+				"Remove 3 tokens from Pull of the Moon. If you do, each Hero Target regains 1 HP.",
 				"Increase all Damage dealt by Hero Targets by 1 until the start of your turn."
 			],
 			"icons": [
@@ -177,7 +177,7 @@
 			],
 			"flavorQuotes": [{
 				"identifier": "Moonwolf",
-				"text": "Sorry about the dishes. You know how I get..."
+				"text": "Sorry about the dishes.{BR}You know how I get..."
 			}],
 			"flavorReference": "Moonwolf, The Moonwolf #2"
 		},
@@ -189,7 +189,7 @@
 				"one-shot"
 			],
 			"body": [
-				"{Moonwolf} and another Hero character card regain 2 HP, then choose one of these Hero's players to play a card."
+				"{Moonwolf} and another Hero character card each regain 2 HP, then choose one of these Hero's to play a card."
 			],
 			"icons": [
 				"GainHP",
@@ -197,7 +197,7 @@
 			],
 			"flavorQuotes": [{
 				"identifier": "Moonwolf",
-				"text": "I think we have time for another drink, don't you..."
+				"text": "I think we have time, don't you..."
 			}],
 			"flavorReference": "Moonwolf, Supernatural Romance #1"
 		},
@@ -216,7 +216,7 @@
 				"RemoveTokens",
 				"PlayCardNow"
 			],
-			"flavorText": "These blessing, accepted not chosen, to change the world - Prayer of Luna's Chosen"
+			"flavorText": "These blessing, accepted{BR}not chosen{BR}to change the world.{BR}Prayer of Luna's Chosen"
 		},
 		{
 			"identifier": "LunasAvatar",
@@ -233,7 +233,7 @@
 			],
 			"body": [
 				"Increase Melee damage dealt by {Moonwolf} to non-Hero targets by 2.",
-				"At the start of your turn, remove 3 Tokens from Pull of the Moon, or destroy this card."
+				"At the start of your turn, remove 3 tokens from Pull of the Moon, or destroy this card."
 			],
 			"flavorQuotes": [{
 				"identifier": "Nightmist",
@@ -244,25 +244,23 @@
 		{
 			"identifier": "FrenziedStrikes",
 			"count": 3,
-			"title": "Frenzid Strikes",
+			"title": "Frenzied Strikes",
 			"keywords": [
 				"ongoing",
 				"limited",
 				"feral"
 			],
 			"icons": [
-				"DestroySelf",
-				"IncreaseDamageDealtMelee",
-				"RemoveTokens"
+				"UsePowerExtra",
+				"DealDamageMelee"
 			],
 			"body": [
-				"Increase Melee damage dealt by {Moonwolf} to non-Hero targets by 2.",
-				"At the start of your turn, remove 3 Tokens from Pull of the Moon, or destroy this card."
+				"You may use {Moonwolf}'s innate power an additional time during your power phase.",
+				"If you do, {Moonwolf} deals herself 1 melee damage."
 			],
-
 			"flavorQuotes": [{
 				"identifier": "Tempest",
-				"text": "Stop! You'll tear yourself apart."
+				"text": "Stop! You will tear yourself apart."
 			}],
 			"flavorReference": "Supernatural Romance #3"
 		},
@@ -277,7 +275,7 @@
 			],
 			"body": [
 				"At the start of your turn, {Moonwolf} regains 1 HP.",
-				"Whenever {Moonwolf} is dealt damage, she may remove 2 Tokens to regain 1 HP."
+				"Whenever {Moonwolf} is dealt damage, she may remove 2 tokens from Pull of the Moon to regain 1 HP."
 			],
 			"icons": [
 				"StartOfTurnAction",
@@ -286,7 +284,7 @@
 			],
 			"flavorQuotes": [{
 				"identifier": "Moonwolf",
-				"text": "My Mistress demands much, but I know she cares."
+				"text": "My Mistress demands much,{BR}but I know she cares."
 			}],
 			"flavorReference": "Supernatural Romance #1"
 		},
@@ -309,7 +307,7 @@
 			],
 			"flavorQuotes": [{
 				"identifier": "Tachyon",
-				"text": "Did you see what she did to Orbo? I threw up."
+				"text": "Did you see what she did to Orbo?{BR}I threw up."
 			}],
 			"flavorReference": "The Moonwolf #2"
 		},
@@ -348,7 +346,7 @@
 			],
 			"body": [
 				"Redirect all Damage that would be dealt to Hero Targets to {Moonwolf}.",
-				"Whenever {Moonwolf} takes Damage, yhou may prevent that damage by removing X tokens from Pull of the Moon, where X is the amount of damage being dealt.",
+				"Whenever {Moonwolf} takes Damage, you may prevent that damage by removing X tokens from Pull of the Moon, where X is the amount of damage being dealt.",
 				"At the start of your turn, destroy this card."
 			],
 			"icons": [
@@ -374,7 +372,7 @@
 				"feral"
 			],
 			"powers": [
-				"Add 2 Tokens to Pull of the Moon, then select a Hero to regain 2 HP, and draw a card.."
+				"Add 2 tokens to Pull of the Moon, then select a Hero to regain 2 HP and draw a card."
 			],
 			"icons": [
 				"UsePower",
@@ -396,7 +394,7 @@
 				"one-shot"
 			],
 			"body": [
-				"{Moonwolf} deals herself 2 Melee damage, then adds 3 Tokens to Pull of the Moon.",
+				"{Moonwolf} deals herself 2 Melee damage, then adds 3 tokens to Pull of the Moon.",
 				"You may play a card now."
 			],
 			"icons": [
