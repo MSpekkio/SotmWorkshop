@@ -11,13 +11,15 @@ namespace SotmWorkshop.Moonwolf
     {
         public ChannelTheMoonCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
+            SpecialStringMaker.ShowTokenPool(PullOfTheMoon);
         }
 
         public override void AddTriggers()
         {
             base.AddRedirectDamageTrigger(dd => dd.Target.IsHero && dd.Target != CharacterCard, () => CharacterCard, false);
-            base.AddTrigger<DealDamageAction>(dd => dd.Target == CharacterCard, DealDamageReponse, TriggerType.WouldBeDealtDamage, TriggerTiming.Before);
-            base.AddStartOfTurnTrigger(tt => tt == TurnTaker, p => GameController.DestroyCard(DecisionMaker, Card, cardSource: GetCardSource()), TriggerType.DestroySelf);
+            base.AddTrigger<DealDamageAction>(dd => dd.Target == CharacterCard, DealDamageReponse, new[] { TriggerType.WouldBeDealtDamage, TriggerType.CancelAction }, TriggerTiming.Before,
+                    isConditional: true, isActionOptional: true);
+            base.AddStartOfTurnTrigger(tt => tt == TurnTaker, p => DestroyThisCardResponse(p), TriggerType.DestroySelf);
         }
 
         private IEnumerator DealDamageReponse(DealDamageAction dealDamage)
@@ -26,7 +28,10 @@ namespace SotmWorkshop.Moonwolf
             if (PullOfTheMoon.CurrentValue >= dealDamage.Amount)
             {
                 List<RemoveTokensFromPoolAction> storedResults = new List<RemoveTokensFromPoolAction>();
-                coroutine = GameController.RemoveTokensFromPool(PullOfTheMoon, dealDamage.Amount, storedResults, optional: true, cardSource: GetCardSource());
+                coroutine = GameController.RemoveTokensFromPool(PullOfTheMoon, dealDamage.Amount, storedResults,
+                                optional: true,
+                                gameAction: dealDamage,
+                                cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(coroutine);
@@ -60,7 +65,6 @@ namespace SotmWorkshop.Moonwolf
                     base.GameController.ExhaustCoroutine(coroutine);
                 }
             }
-            yield break;
         }
     }
 }

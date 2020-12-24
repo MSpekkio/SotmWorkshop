@@ -1,5 +1,5 @@
 {
-	"name": "Moonwulf",
+	"name": "Moonwolf",
 	"kind": "Hero",
 	"initialCardIdentifiers": [
 		"MoonwolfCharacter",
@@ -31,7 +31,6 @@
 				"Destroy an Enviroment Target."
 			],
 			"flippedIcons": [
-				"DealDamageMelee",
 				"GainHP",
 				"DrawCardNow",
 				"PlayCardNow",
@@ -41,7 +40,6 @@
 				"default": "I am a sexy wolf lady, grr!"
 			},
 			"complexity": 1
-
 		},
 		{
 			"identifier": "PullOfTheMoon",
@@ -353,8 +351,7 @@
 				"RedirectDamage",
 				"RemoveTokens",
 				"CancelledDamageGreen",
-				"StartOfTurnAction",
-				"DestroySelf"
+				"StartOfTurnAction"
 			],
 			"flavorQuotes": [{
 				"identifier": "Visionary",

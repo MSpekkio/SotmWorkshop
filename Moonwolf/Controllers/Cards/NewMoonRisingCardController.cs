@@ -9,8 +9,7 @@ namespace SotmWorkshop.Moonwolf
 {
     public class NewMoonRisingCardController : MoonwolfCardController
     {
-        public NewMoonRisingCardController(Card card, TurnTakerController turnTakerController)
-         : base(card, turnTakerController)
+        public NewMoonRisingCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowTokenPool(PullOfTheMoon);
         }

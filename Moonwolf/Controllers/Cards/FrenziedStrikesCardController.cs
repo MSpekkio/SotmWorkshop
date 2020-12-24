@@ -38,10 +38,13 @@ namespace SotmWorkshop.Moonwolf
 
         public override void AddTriggers()
         {
-            AddStartOfTurnTrigger(tt => tt == TurnTaker, pca => GrantACharacterPowerUsage(), TriggerType.IncreasePowerNumberOfUses);
+            AddPhaseChangeTrigger(tt => tt == TurnTaker, p => p == Phase.UsePower,
+                        pca => GameController.CanUsePowers(HeroTurnTakerController, CharacterCardController.GetCardSource()),
+                        pca => GrantACharacterPowerUsage(),
+                        new[] { TriggerType.IncreasePowerNumberOfUses }, TriggerTiming.After);
 
             //only trigger the potential damage effect during Moonwolf's turn, and on her innate power
-            AddTrigger<UsePowerAction>(upa => Game.ActiveTurnTaker == TurnTaker && upa.HeroUsingPower == HeroTurnTakerController && upa.Power.CardController == CharacterCardController && upa.Power.Index == 0, UsePowerResponse, TriggerType.DealDamage, TriggerTiming.After);
+            AddTrigger<UsePowerAction>(upa => Game.ActiveTurnTaker == TurnTaker && Game.ActiveTurnPhase.IsUsePower && upa.HeroUsingPower == HeroTurnTakerController && upa.Power.CardController == CharacterCardController && upa.Power.Index == 0, UsePowerResponse, TriggerType.DealDamage, TriggerTiming.After);
         }
 
         private IEnumerator UsePowerResponse(UsePowerAction action)
@@ -61,12 +64,11 @@ namespace SotmWorkshop.Moonwolf
                     base.GameController.ExhaustCoroutine(coroutine);
                 }
             }
-            yield break;
         }
 
         public override IEnumerator Play()
         {
-            if (Game.ActiveTurnTaker == TurnTaker && Game.ActiveTurnPhase.Phase != Phase.Start && Game.ActiveTurnPhase.Phase != Phase.BeforeStart)
+            if (Game.ActiveTurnTaker == TurnTaker && Game.ActiveTurnPhase.IsUsePower)
             {
                 IEnumerator coroutine = GrantACharacterPowerUsage();
                 if (base.UseUnityCoroutines)
@@ -78,7 +80,6 @@ namespace SotmWorkshop.Moonwolf
                     base.GameController.ExhaustCoroutine(coroutine);
                 }
             }
-            yield break;
         }
     }
 }

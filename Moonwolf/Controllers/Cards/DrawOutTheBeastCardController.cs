@@ -10,9 +10,9 @@ namespace SotmWorkshop.Moonwolf
 {
     public class DrawOutTheBeastCardController : MoonwolfCardController
     {
-        public DrawOutTheBeastCardController(Card card, TurnTakerController turnTakerController)
-         : base(card, turnTakerController)
+        public DrawOutTheBeastCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
+            SpecialStringMaker.ShowTokenPool(PullOfTheMoon);
         }
 
         public override IEnumerator Play()
@@ -69,9 +69,7 @@ namespace SotmWorkshop.Moonwolf
                     this.GameController.ExhaustCoroutine(coroutine);
                 }
             }
-            yield break;
         }
-
 
         protected IEnumerator RevealCards_PlayOne_DiscardTheRest(int numberOfMatchesToReveal)
         {
@@ -128,6 +126,5 @@ namespace SotmWorkshop.Moonwolf
                 }
             }
         }
-
     }
 }

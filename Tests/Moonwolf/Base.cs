@@ -25,7 +25,5 @@ namespace SotmWorkshop.Moonwolf
                 return card;
             }).ToArray();
         }
-
-
     }
 }

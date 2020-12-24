@@ -12,7 +12,6 @@ namespace SotmWorkshop.Moonwolf
     [TestFixture()]
     public class Cards : Base
     {
-
         [Test]
         public void BlindRage_NoHeroTargets()
         {
@@ -280,10 +279,9 @@ namespace SotmWorkshop.Moonwolf
             AssertNumberOfStatusEffectsInPlay(0);
 
             GoToStartOfTurn(moonwolf);
-
-            AssertNumberOfStatusEffectsInPlay(1);
             GoToPlayCardPhase(moonwolf);
             GoToUsePowerPhase(moonwolf);
+            AssertNumberOfStatusEffectsInPlay(1);
 
             DecisionSelectTarget = mdp;
             QuickHPStorage(moonwolf.CharacterCard, mdp);

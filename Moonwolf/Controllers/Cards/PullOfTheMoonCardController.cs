@@ -9,8 +9,7 @@ namespace SotmWorkshop.Moonwolf
 {
     public class PullOfTheMoonCardController : MoonwolfCardController
     {
-        public PullOfTheMoonCardController(Card card, TurnTakerController turnTakerController)
-         : base(card, turnTakerController)
+        public PullOfTheMoonCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
             AddThisCardControllerToList(CardControllerListType.MakesIndestructible);
 
@@ -37,7 +36,6 @@ namespace SotmWorkshop.Moonwolf
             {
                 base.GameController.ExhaustCoroutine(coroutine);
             }
-            yield break;
         }
 
         public override bool AskIfCardIsIndestructible(Card card)

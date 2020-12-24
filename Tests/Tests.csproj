@@ -7,6 +7,12 @@
 		<RootNamespace>SotmWorkshop.Tests</RootNamespace>
 		<DebugType>pdbonly</DebugType>
 		<DebugSymbols>true</DebugSymbols>
+		<Authors>Michael 'MSpekkio' Telford</Authors>
+		<Copyright>Michael 'MSpekkio' Telford</Copyright>
+		<PackageProjectUrl>https://github.com/MSpekkio/SotmWorkshop</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/MSpekkio/SotmWorkshop/tree/main/Tests</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>sotm,test,nunit</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>

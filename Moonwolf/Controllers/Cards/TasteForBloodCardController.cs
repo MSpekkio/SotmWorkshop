@@ -9,8 +9,7 @@ namespace SotmWorkshop.Moonwolf
 {
     public class TasteForBloodCardController : MoonwolfCardController
     {
-        public TasteForBloodCardController(Card card, TurnTakerController turnTakerController)
-         : base(card, turnTakerController)
+        public TasteForBloodCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
         }
 
@@ -42,7 +41,6 @@ namespace SotmWorkshop.Moonwolf
                     base.GameController.ExhaustCoroutine(coroutine);
                 }
             }
-            yield break;
         }
     }
 }

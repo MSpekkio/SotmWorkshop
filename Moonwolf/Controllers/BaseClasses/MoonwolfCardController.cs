@@ -18,8 +18,13 @@ namespace SotmWorkshop.Moonwolf
         {
             get
             {
-                return HeroTurnTaker.FindCard(PullOfTheMoonIdentifier).FindTokenPool(PullOfTheMoonIdentifier);
+                return HeroTurnTaker?.FindCard(PullOfTheMoonIdentifier)?.FindTokenPool(PullOfTheMoonIdentifier);
             }
+        }
+
+        protected bool IsFeral(Card c)
+        {
+            return c != null && GameController.DoesCardContainKeyword(c, "feral");
         }
 
         protected IEnumerator SendMessageAboutInsufficientTokensRemoved(int numberRemoved, string suffix)
@@ -43,7 +48,6 @@ namespace SotmWorkshop.Moonwolf
             {
                 base.GameController.ExhaustCoroutine(coroutine);
             }
-            yield break;
         }
 
         protected IEnumerator SendMessageAboutInsufficientTokensRequired(int numberRequired, string suffix)
@@ -68,7 +72,6 @@ namespace SotmWorkshop.Moonwolf
             {
                 base.GameController.ExhaustCoroutine(coroutine);
             }
-            yield break;
         }
     }
 }

@@ -9,8 +9,7 @@ namespace SotmWorkshop.Moonwolf
 {
     public class RampageCardController : MoonwolfCardController
     {
-        public RampageCardController(Card card, TurnTakerController turnTakerController)
-         : base(card, turnTakerController)
+        public RampageCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria(c => c.IsOngoing || c.IsEnvironment, "ongoing or environment"));
         }
@@ -53,7 +52,6 @@ namespace SotmWorkshop.Moonwolf
             {
                 base.GameController.ExhaustCoroutine(coroutine);
             }
-            yield break;
         }
     }
 }

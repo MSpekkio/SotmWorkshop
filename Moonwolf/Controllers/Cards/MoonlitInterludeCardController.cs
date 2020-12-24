@@ -9,8 +9,7 @@ namespace SotmWorkshop.Moonwolf
 {
     public class MoonlitInterludeCardController : MoonwolfCardController
     {
-        public MoonlitInterludeCardController(Card card, TurnTakerController turnTakerController)
-         : base(card, turnTakerController)
+        public MoonlitInterludeCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
         }
 
@@ -61,7 +60,6 @@ namespace SotmWorkshop.Moonwolf
                     base.GameController.ExhaustCoroutine(selection);
                 }
             }
-            yield break;
         }
     }
 }

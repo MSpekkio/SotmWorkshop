@@ -9,8 +9,7 @@ namespace SotmWorkshop.Moonwolf
 {
     public class LunasAvatarCardController : MoonwolfCardController
     {
-        public LunasAvatarCardController(Card card, TurnTakerController turnTakerController)
-         : base(card, turnTakerController)
+        public LunasAvatarCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowTokenPool(PullOfTheMoon);
         }
@@ -80,7 +79,6 @@ namespace SotmWorkshop.Moonwolf
                     base.GameController.ExhaustCoroutine(coroutine);
                 }
             }
-            yield break;
         }
     }
 }

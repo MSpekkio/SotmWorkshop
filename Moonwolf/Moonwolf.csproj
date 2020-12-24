@@ -7,11 +7,24 @@
 	  <AssemblyName>SotmWorkshop.Moonwolf</AssemblyName>
 	  <DebugType>pdbonly</DebugType>
 	  <DebugSymbols>true</DebugSymbols>
+	  <Authors>Michael 'MSpekkio' Telford</Authors>
+	  <Company />
+	  <Product>Sentinels of the Multiverse Mod - Moonwolf</Product>
+	  <Copyright>Michael 'MSpekkio' Telford 2020-2021</Copyright>
+	  <PackageProjectUrl>https://github.com/MSpekkio/SotmWorkshop</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/MSpekkio/SotmWorkshop</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+	  <PackageTags>sotm,mod,sentinelsofthemultiverse,handlabra</PackageTags>
+	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="DeckLists\MoonwolfDeckList.json" />
     <None Remove="manifest.json" />
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
