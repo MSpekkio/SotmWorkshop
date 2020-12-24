@@ -3,6 +3,8 @@
 ## Heroes
 **Moonwolf** - Chosen of Luna
 
+![MoonwolfCharacter](.\Moonwolf\Assets\MoonwolfHero.png)
+
 This hero offers a take on the Urban Fantasy/Supernatual Romance Protagonist.
 This character was created and printed for the tabletop version of Sentinels, and 
 has seen numerous play sessions.  Card Art is stolen/edited from google image search.
