@@ -33,10 +33,16 @@ Create a `mods\SotmWorkshopMoonwolf` folder, and extract the Release zip file in
 It should look like this:
 
     \SotmWorkshopMoonwolf
-        Atlas
-        LargeCardTextures
         manifest.json
         SotmWorkshop.Moonwolf.dll
+
+The art files are too large to include in a release file, but can be downloaded separately from the Assets folder and placed in the mod folder like below.
+
+    \SotmWorkshopMoonwolf
+       Atlas
+       LargeCardTextures
+       manifest.json
+       SotmWorkshop.Moonwolf.dll
 
 ## Issues
 If you encounter an issue, please report it here on GitHub.
